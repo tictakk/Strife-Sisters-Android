@@ -49,6 +49,10 @@ class Director(
   }
 
   fun audioBuffer() = console.audioBuffer()
+//  fun audioBuffer(): FloatArray{
+//    println("calling audio buffer")
+//    return console.audioBuffer()
+//  }
 
   fun reset() {
     isRunning = false

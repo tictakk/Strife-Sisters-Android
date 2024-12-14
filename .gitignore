@@ -21,3 +21,5 @@ local.properties
 .externalNativeBuild
 .cxx
 node_modules
+
+android/src/main/res/raw/*.pce

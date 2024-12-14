@@ -7,6 +7,7 @@
 #include <jni.h>
 #include <android/log.h>
 #include <deque>
+#include "SoundManager.h"
 
 #ifndef MODULE_NAME
 #define MODULE_NAME  "KTNES"
@@ -25,13 +26,16 @@ class AudioEngine : public AudioStreamCallback {
 
 public:
     void start(
-        std::vector<int> cpuIds,
-        JavaVM *javaVm,
-        jobject classLoader,
-        jmethodID findClassMethod
+            std::vector<int> cpuIds,
+            JavaVM *javaVm,
+            jobject classLoader,
+            jmethodID findClassMethod,
+            SoundManager* sm
     );
 
-    void play(float data);
+    AudioStream *mStream = nullptr;
+
+    void play(float data);//change back to int
 
     DataCallbackResult
     onAudioReady(AudioStream *oboeStream, void *audioData, int32_t numFrames) override;
@@ -39,9 +43,11 @@ public:
     void pause() const;
     void resume() const;
 
+    static void FillAudioBuffer(uint8_t *stream, int len); //this is the callback
+
 private:
 
-    AudioStream *mStream = nullptr;
+//    AudioStream *mStream = nullptr; //moved this to public so I can shar <3
     JavaVM *mJavaVM = nullptr;
     jobject mClassLoader;
     jmethodID mFindClassMethod;
@@ -49,6 +55,7 @@ private:
     bool mIsThreadAffinitySet = false;
     jclass mMainActivityClass = nullptr;
     jmethodID mAudioBufferMethod = nullptr;
+    SoundManager* soundManager = nullptr;
 
     void setThreadAffinity();
     JNIEnv *getEnv();

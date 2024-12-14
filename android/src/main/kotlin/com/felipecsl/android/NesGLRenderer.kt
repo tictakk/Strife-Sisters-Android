@@ -1,6 +1,8 @@
 package com.felipecsl.android
 
+import android.opengl.EGLContext
 import android.opengl.GLES20
+import android.opengl.GLES30
 import android.opengl.GLSurfaceView
 import com.felipecsl.knes.GLSprite
 import javax.microedition.khronos.egl.EGLConfig

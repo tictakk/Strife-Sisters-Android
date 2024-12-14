@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KTNES Emulator</string>
+    <string name="app_name">Bad Emulator</string>
     <string name="action_save_state">Save State</string>
     <string name="action_restore_state">Restore State</string>
 </resources>

@@ -5,6 +5,7 @@ import android.util.Log
 
 class AudioEngineWrapper {
   fun start() {
+//    println("starting audio engine?")
     startAudioEngine(getExclusiveCores())
   }
 

@@ -1,5 +1,6 @@
 include ':android'
-include ':web'
+//include ':web'
 include ':lib'
 
-enableFeaturePreview('GRADLE_METADATA')
+//enableFeaturePreview('GRADLE_METADATA')
+include ':pcemulator'
