@@ -17,14 +17,14 @@ void AudioEngine::start(
     mClassLoader = classLoader;
     mFindClassMethod = findClassMethod;
     AudioStreamBuilder builder;
-    builder.setCallback(this);
+//    builder.setCallback(this);
     builder.setPerformanceMode(PerformanceMode::None);
     builder.setUsage(Usage::Game);
 //  builder.setFormat(AudioFormat::Float);
     builder.setFormat(AudioFormat::I16);
     builder.setChannelCount(ChannelCount::Stereo);
     builder.setSharingMode(SharingMode::Exclusive);
-    builder.setSampleRate(96000);//4800?
+    builder.setSampleRate(96000);//96000?
     Result result = builder.openStream(&mStream);
     soundManager = sm;
 
@@ -43,16 +43,31 @@ void AudioEngine::stop() const {
 }
 
 void AudioEngine::pause() const {
+//    mStream->getAvailableFrames().value();
     LOGD("AudioEngine pause()");
     if (mStream != nullptr) {
         mStream->pause();
     }
 }
 
+//ResultWithValue<int32_t> getFramesAvailable(){
+//    return mStream->getAvailableFrames();
+//    return mStream->
+//}
+
 void AudioEngine::resume() const {
     LOGD("AudioEngine resume()");
     if (mStream != nullptr) {
         mStream->start();
+    }
+}
+
+void AudioEngine::writeAudioData(const int16_t * audioData, int32_t numFrames){
+    if(!mStream) return;
+
+    auto result = mStream->write(audioData,numFrames,kNanosPerSecond);
+    if(result.value() < 0){
+        LOGE("Some error");
     }
 }
 

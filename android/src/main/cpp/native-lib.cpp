@@ -118,7 +118,7 @@ Java_com_felipecsl_knes_app_MainActivity_loadROM(
 //    jsize size = env->GetArrayLength(romData);
 //    rom_data = (jbyteArray) env->GetByteArrayElements(romData,NULL);
     soundManager = SoundManager();
-    pceConsole = new PceConsole(&soundManager);
+    pceConsole = new PceConsole(&soundManager,&engine);
     pceConsole->LoadRom(javaArrayToStdCharVector(env,romData));
 //    env->ReleaseByteArrayElements(romData,(jbyte *)rom_data,JNI_ABORT);
 }
@@ -183,12 +183,3 @@ Java_com_felipecsl_knes_app_MainActivity_00024Companion_getAudioBuffer(JNIEnv *e
     return intJavaArrayScreen;
 //    return (jintArray)pceConsole->GetAudioBuffer();
 }
-
-//int* GetABuffer(){
-//    int16_t* audioBuffer = pceConsole->GetAudioBuffer();
-//    int aBuffer[8000];
-//    for(int i=0; i<8000; i++){
-//        aBuffer[i] = audioBuffer[i];
-//    }
-//    return aBuffer;
-//}

@@ -269,8 +269,8 @@ private val onButtonTouched = { b: Buttons ->
   companion object {
 //    const val ROM = R.raw.bingo
 //    const val ROM = R.raw.strifesisters
-//    const val ROM = R.raw.blazinglazers
-    const val ROM = R.raw.devilscrush
+    const val ROM = R.raw.blazinglazers
+//    const val ROM = R.raw.devilscrush
     private const val STATE_PREFS_KEY = "KTNES_STATE"
     internal var staticDirector: Director? = null
     internal var staticPce: PCEngine? = null

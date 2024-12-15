@@ -16,9 +16,10 @@
 //#include "PCE/HesFileData.h"
 //AudioEngine engine;
 
-PceConsole::PceConsole(SoundManager* sm)
+PceConsole::PceConsole(SoundManager* sm, AudioEngine* ae)
 {
     _soundManager = sm;
+    _audioEngine = ae;
 }
 
 void PceConsole::Reset()

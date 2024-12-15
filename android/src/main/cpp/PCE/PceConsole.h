@@ -1,7 +1,7 @@
 #pragma once
 #include "pch.h"
 #include "SoundManager.h"
-//#include "AudioEngine.h"
+#include "AudioEngine.h"
 //#include <memory>
 
 class PceCpu;
@@ -64,7 +64,6 @@ private:
     unique_ptr<IPceMapper> _mapper;
 //    unique_ptr<HesFileData> _hesData;
     RomFormat _romFormat = RomFormat::Pce;
-//    AudioEngine _engine;
 
     static bool IsPopulousCard(uint32_t crc32);
     static bool IsSuperGrafxCard(uint32_t crc32);
@@ -73,9 +72,10 @@ private:
 //    bool LoadFirmware(DiscInfo& disc, vector<uint8_t>& romData);
 
 public:
-    PceConsole(SoundManager *sm);
+    PceConsole(SoundManager *sm, AudioEngine *ae);
 //    unique_ptr<AudioEngine> _engine;
     SoundManager* _soundManager;
+    AudioEngine* _audioEngine;
     static vector<string> GetSupportedExtensions() { return { ".pce", ".cue", ".sgx", ".hes" }; }
     static vector<string> GetSupportedSignatures() { return { "HESM" }; }
 

@@ -44,6 +44,8 @@ public:
     void resume() const;
 
     static void FillAudioBuffer(uint8_t *stream, int len); //this is the callback
+    void writeAudioData(const int16_t* audioData, int32_t numFrames);
+    ResultWithValue<int32_t> getFramesAvailable();
 
 private:
 
