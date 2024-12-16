@@ -52,6 +52,12 @@ class MainActivity : AppCompatActivity(), Runnable {
   private lateinit var console: Console
   @RequiresApi(Build.VERSION_CODES.M)
   private lateinit var glSprite: GLSprite
+//  enum Buttons { Up = 0, Down, Left, Right, Select, Run, I, II };
+
+  enum class Pad(i: Int){
+    BUTTON_UP(0x1), BUTTON_DOWN(0x2), BUTTON_LEFT(0x3), BUTTON_RIGHT(0x4),
+    BUTTON_SELECT(0x4), BUTTON_RUN(0x5), BUTTON_I(0x6), BUTTON_II(0x7)
+  }
 //  private val onButtonTouched = { b: Gamepad.button ->
 //    View.OnTouchListener { _, e ->
 //      if (!isRunning) {
@@ -65,14 +71,14 @@ class MainActivity : AppCompatActivity(), Runnable {
 //      }
 //    }
 //  }
-private val onButtonTouched = { b: Buttons ->
+private val onButtonTouched = { b: Pad ->
   View.OnTouchListener { _, e ->
     if (!isRunning) {
       false
     } else {
       when (e.action) {
-        MotionEvent.ACTION_DOWN -> director.controller1.onButtonDown(b)
-        MotionEvent.ACTION_UP -> director.controller1.onButtonUp(b)
+        MotionEvent.ACTION_DOWN -> pressButton(b.ordinal)//director.controller1.onButtonDown(b)
+        MotionEvent.ACTION_UP -> releaseButton(b.ordinal)//director.controller1.onButtonUp(b)
       }
       true
     }
@@ -88,6 +94,8 @@ private val onButtonTouched = { b: Buttons ->
 
   external fun loadROM(byteArray: ByteArray): Unit
   external fun runFrame(): Unit
+  external fun pressButton(button: Int)
+  external fun releaseButton(button: Int)
 
   @SuppressLint("ClickableViewAccessibility")
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -103,21 +111,15 @@ private val onButtonTouched = { b: Buttons ->
     }
     btnReset.setOnClickListener {
 
-//      updatePlayPauseIcon()
-//      resetConsole()
-//      glSprite.drawScreenOnce()
-//      println(stringFromJNI().toString())
-//      nesGlSurfaceView.renderer.updateSurface()
-//      audioEngine.start()
     }
-    btnA.setOnTouchListener(onButtonTouched(Buttons.BUTTON_A))
-    btnB.setOnTouchListener(onButtonTouched(Buttons.BUTTON_B))
-    btnSelect.setOnTouchListener(onButtonTouched(Buttons.BUTTON_SELECT))
-    btnStart.setOnTouchListener(onButtonTouched(Buttons.BUTTON_START))
-    arrowUp.setOnTouchListener(onButtonTouched(Buttons.ARROW_UP))
-    arrowDown.setOnTouchListener(onButtonTouched(Buttons.ARROW_DOWN))
-    arrowLeft.setOnTouchListener(onButtonTouched(Buttons.ARROW_LEFT))
-    arrowRight.setOnTouchListener(onButtonTouched(Buttons.ARROW_RIGHT))
+    btnA.setOnTouchListener(onButtonTouched(Pad.BUTTON_I))
+    btnB.setOnTouchListener(onButtonTouched(Pad.BUTTON_II))
+    btnSelect.setOnTouchListener(onButtonTouched(Pad.BUTTON_SELECT))
+    btnStart.setOnTouchListener(onButtonTouched(Pad.BUTTON_RUN))
+    arrowUp.setOnTouchListener(onButtonTouched(Pad.BUTTON_UP))
+    arrowDown.setOnTouchListener(onButtonTouched(Pad.BUTTON_DOWN))
+    arrowLeft.setOnTouchListener(onButtonTouched(Pad.BUTTON_LEFT))
+    arrowRight.setOnTouchListener(onButtonTouched(Pad.BUTTON_RIGHT))
   //    btnA.setOnTouchListener(onButtonTouched(Gamepad.button.I))
 //    btnB.setOnTouchListener(onButtonTouched(Gamepad.button.II))
 //    btnSelect.setOnTouchListener(onButtonTouched(Gamepad.button.SELECT))
@@ -199,17 +201,15 @@ private val onButtonTouched = { b: Buttons ->
   override fun run() {
     while(true) {
       if (isRunning) {
-//        val time = this.console.stepToFrameReady()
-//        if (time > 0) {
-//          Thread.sleep(time)
-//        }
+        val startTime = currentTimeMs()
         runFrame();
-        Thread.sleep(8)
-//        val msSpent = director.stepSeconds(SECS_PER_FRAME)
-//        val msLeft = MS_PER_FRAME - msSpent
-//        if (msLeft > 0) {
-//          Thread.sleep(msLeft)
-//        }
+//        Thread.sleep(8)
+        val endTime = (currentTimeMs() - startTime).toLong()
+        val msLeft = MS_PER_FRAME - endTime;
+        println(msLeft)
+        if(msLeft > 0){
+          Thread.sleep(msLeft)
+        }
       }
     }
   }
@@ -268,8 +268,8 @@ private val onButtonTouched = { b: Buttons ->
 
   companion object {
 //    const val ROM = R.raw.bingo
-//    const val ROM = R.raw.strifesisters
-    const val ROM = R.raw.blazinglazers
+    const val ROM = R.raw.strifesisters
+//    const val ROM = R.raw.blazinglazers
 //    const val ROM = R.raw.devilscrush
     private const val STATE_PREFS_KEY = "KTNES_STATE"
     internal var staticDirector: Director? = null

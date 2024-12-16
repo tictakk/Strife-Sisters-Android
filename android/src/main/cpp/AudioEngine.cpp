@@ -3,7 +3,6 @@
 #include "native-lib.h"
 //#include "PCE/PceConsole.h"
 
-//vector<int16_t> elements;
 void AudioEngine::start(
         std::vector<int> cpuIds,
         JavaVM *javaVm,
@@ -23,8 +22,8 @@ void AudioEngine::start(
 //  builder.setFormat(AudioFormat::Float);
     builder.setFormat(AudioFormat::I16);
     builder.setChannelCount(ChannelCount::Stereo);
-    builder.setSharingMode(SharingMode::Exclusive);
-    builder.setSampleRate(96000);//96000?
+    builder.setSharingMode(SharingMode::Shared);
+    builder.setSampleRate(48000);//96000?
     Result result = builder.openStream(&mStream);
     soundManager = sm;
 
@@ -50,11 +49,6 @@ void AudioEngine::pause() const {
     }
 }
 
-//ResultWithValue<int32_t> getFramesAvailable(){
-//    return mStream->getAvailableFrames();
-//    return mStream->
-//}
-
 void AudioEngine::resume() const {
     LOGD("AudioEngine resume()");
     if (mStream != nullptr) {
@@ -65,7 +59,7 @@ void AudioEngine::resume() const {
 void AudioEngine::writeAudioData(const int16_t * audioData, int32_t numFrames){
     if(!mStream) return;
 
-    auto result = mStream->write(audioData,numFrames,kNanosPerSecond);
+    auto result = mStream->write(audioData,numFrames,0);
     if(result.value() < 0){
         LOGE("Some error");
     }

@@ -95,9 +95,12 @@ bool PceConsole::LoadRom(vector<uint8_t> romData)
 	// }
 
 	_controlManager.reset(new PceControlManager());
+//    GetControlManager()->_controlDevices.push_back(_controlManager->CreateControllerDevice(1));
+//    _controlManager->CreateControllerDevice(0);//.push_back(_controlManager->CreateControllerDevice(1));
+
 	_vce.reset(new PceVce(this));
 	_vpc.reset(new PceVpc(this, _vce.get()));
-	
+//	_controlManager.get()->CreateControllerDevice(0);//added by mk
 	_vdc.reset(new PceVdc(this, _vpc.get(), _vce.get(), false));
 //	if(consoleType == PceConsoleType::SuperGrafx) {
 //		_vdc2.reset(new PceVdc(this, _vpc.get(), _vce.get(), true));
@@ -226,6 +229,14 @@ double PceConsole::GetFps()
 
 int16_t* PceConsole::GetAudioBuffer(){
     return _psg->GetAudioBuffer();
+}
+
+void PceConsole::SetControllerInput(uint8_t value){
+    GetControlManager()->GetControlDevice(0,0)->SetBit(value);
+}
+
+void PceConsole::UnsetControllerInput(uint8_t value){
+    GetControlManager()->GetControlDevice(0,0)->ClearBit(value);
 }
 
 // BaseVideoFilter* PceConsole::GetVideoFilter(bool getDefaultFilter)

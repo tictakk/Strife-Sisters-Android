@@ -18,12 +18,6 @@ SoundManager soundManager;
 uint16_t *screen;
 
 void initConsole(){
-//    pceConsole = new PceConsole();
-//    vector<uint8_t> *vec = new vector<uint8_t>;
-//    pceConsole->LoadRom(*vec);
-//    int ARRAY_SIZE = 256 * 240;
-//    for (int i=0;i<ARRAY_SIZE;i++)pceConsole->GetVpc()->_currentOutBuffer[i] = 0x8888;
-////    printf("pce initialized!\n");
 }
 
 JNIEXPORT jint
@@ -120,7 +114,32 @@ Java_com_felipecsl_knes_app_MainActivity_loadROM(
     soundManager = SoundManager();
     pceConsole = new PceConsole(&soundManager,&engine);
     pceConsole->LoadRom(javaArrayToStdCharVector(env,romData));
-//    env->ReleaseByteArrayElements(romData,(jbyte *)rom_data,JNI_ABORT);
+
+    //    env->ReleaseByteArrayElements(romData,(jbyte *)rom_data,JNI_ABORT);
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_felipecsl_knes_app_MainActivity_pressButton(
+        JNIEnv *env,
+        jobject /* this */,
+        jint button
+        ){
+    if(pceConsole != nullptr){
+        pceConsole->SetControllerInput(button);//5);
+    }
+}
+
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_felipecsl_knes_app_MainActivity_releaseButton(
+        JNIEnv *env,
+        jobject /* this */,
+        jint button
+){
+    if(pceConsole != nullptr){
+        pceConsole->UnsetControllerInput(button);
+    }
 }
 
 extern "C"

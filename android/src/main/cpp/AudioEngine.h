@@ -1,7 +1,6 @@
 #ifndef KTNES_AUDIOENGINE_H
 #define KTNES_AUDIOENGINE_H
 
-
 #include <oboe/Oboe.h>
 #include <vector>
 #include <jni.h>

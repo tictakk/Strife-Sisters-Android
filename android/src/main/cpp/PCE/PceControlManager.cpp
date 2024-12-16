@@ -1,11 +1,12 @@
 #include "pch.h"
 #include "PCE/PceControlManager.h"
-//#include "PCE/Input/PceController.h"
+#include "PCE/Input/PceController.h"
 //#include "PCE/Input/PceTurboTap.h"
 //#include "PCE/Input/PceAvenuePad6.h"
 
 PceControlManager::PceControlManager()
 {
+    _controlDevices.push_back(CreateControllerDevice(0));
 }
 
 PceControlManagerState& PceControlManager::GetState()
@@ -14,11 +15,12 @@ PceControlManagerState& PceControlManager::GetState()
 }
 
 // shared_ptr<BaseControlDevice> PceControlManager::CreateControllerDevice(ControllerType type, uint8_t port)
-uint8_t PceControlManager::CreateControllerDevice(u_int8_t type, uint8_t port)
+shared_ptr<BaseControlDevice> PceControlManager::CreateControllerDevice(uint8_t port)
 {
 	// PcEngineConfig& cfg = _emu->GetSettings()->GetPcEngineConfig();
-	// shared_ptr<BaseControlDevice> device;
-	
+    shared_ptr<BaseControlDevice> device;
+
+	device.reset(new PceController(port,(new PcEngineConfig)->Port1.Keys));// cfg.Port1.Keys));
 	// switch(type) {
 	// 	default:
 	// 	case ControllerType::None: break;
@@ -35,43 +37,44 @@ uint8_t PceControlManager::CreateControllerDevice(u_int8_t type, uint8_t port)
 	// 	}
 	// }
 
-	// return device;
-	return 0;
+    return device;
+//	return 0;
 }
 
-void PceControlManager::reset(PceControlManager controlManager){
-
+shared_ptr<BaseControlDevice> PceControlManager::GetControlDevice(uint8_t port, uint8_t subPort){
+    return _controlDevices.at(port);
 }
+
 
 uint8_t PceControlManager::ReadInputPort()
 {
-	// SetInputReadFlag();
+//	 SetInputReadFlag();
 
-	// uint8_t result = 0;
-	// bool hasController = false;
-	// for(shared_ptr<BaseControlDevice>& device : _controlDevices) {
-	// 	if(device->IsConnected()) {
-	// 		result |= device->ReadRam(0);
-	// 		hasController |= device->GetPort() == 0;
-	// 	}
-	// }
+	 uint8_t result = 0;
+	 bool hasController = false;
+	 for(shared_ptr<BaseControlDevice>& device : _controlDevices) {
+	 	if(device->IsConnected()) {
+	 		result |= device->ReadRam(0);
+	 		hasController |= device->GetPort() == 0;
+	 	}
+	 }
 
-	// if(!hasController) {
-	// 	//When no controller is connected, bottom 4 bits will be open bus
-	// 	result |= 0x0F;
-	// }
+	 if(!hasController) {
+	 	//When no controller is connected, bottom 4 bits will be open bus
+	 	result |= 0x0F;
+	 }
 
-	// return result;
-	return 0;
+	 return result;
+//	return 0;
 }
 
 void PceControlManager::WriteInputPort(uint8_t value)
 {
-	// for(shared_ptr<BaseControlDevice>& device : _controlDevices) {
-	// 	if(device->IsConnected()) {
-	// 		device->WriteRam(0, value);
-	// 	}
-	// }
+	 for(shared_ptr<BaseControlDevice>& device : _controlDevices) {
+	 	if(device->IsConnected()) {
+	 		device->WriteRam(0, value);
+	 	}
+	 }
 }
 
 void PceControlManager::UpdateControlDevices()

@@ -38,7 +38,6 @@ public:
 	bool IsLfoEnabled();
 	uint16_t GetLfoFrequency();
 	uint32_t GetLfoCh1PeriodOffset();
-//    int16_t* _soundBuffer = nullptr;
 
 	PcePsgState& GetState() { return _state; }
 	PcePsgChannelState& GetChannelState(uint8_t ch) { return _channels[ch].GetState(); }

@@ -116,6 +116,9 @@ public:
     RomFormat GetRomFormat();
 
     void InitHesPlayback(uint8_t selectedTrack);
+
+    void SetControllerInput(uint8_t value);
+    void UnsetControllerInput(uint8_t value);
 //    AudioTrackInfo GetAudioTrackInfo();
     // void ProcessAudioPlayerAction(AudioPlayerActionParams p);
 

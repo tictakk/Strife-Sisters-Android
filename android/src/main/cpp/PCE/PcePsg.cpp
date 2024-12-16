@@ -142,7 +142,6 @@ void PcePsg::UpdateSoundOffset()
 	for(int i = 0; i < 6; i++) {
 		_channels[i].SetOutputOffset(offset);
 	}
-//    _clockCounter = 0;//added by me
 }
 
 void PcePsg::PlayQueuedAudio()

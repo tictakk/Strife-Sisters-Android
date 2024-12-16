@@ -20,6 +20,10 @@ add_library( # Specifies the name of the library.
         src/main/cpp/PCE/PceCpu.Instructions.cpp
         src/main/cpp/PCE/blip_buf.cpp
         src/main/cpp/SoundManager.cpp
+        src/main/cpp/Shared/SettingsType.cpp
+        src/main/cpp/Shared/ControlDeviceState.cpp
+        src/main/cpp/Shared/BaseControlDevice.cpp
+        src/main/cpp/PCE/PceControlManager.cpp
 )
 #        src/main/cpp/Shared/Audio/SoundMixer.cpp
 
