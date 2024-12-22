@@ -3,8 +3,6 @@ package com.felipecsl.knes
 import android.opengl.GLES11Ext
 import android.opengl.GLES20
 import android.opengl.GLES30.*
-import com.laconic.pcemulator.Console
-import com.laconic.pcemulator.pce.PCEngine
 import java.lang.annotation.Native
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -16,8 +14,7 @@ class GLSprite {
   private var texture: Int? = null
 
   var director: Director? = null
-  var pce: PCEngine? = null
-  var console: Console? = null
+  private var isRunning: Boolean = false
 
 //  var screen: IntArray = IntArray(256*240)
   var screen: IntArray = IntArray(IMG_HEIGHT* IMG_WIDTH)
@@ -30,6 +27,10 @@ class GLSprite {
       val posVertices: FloatBuffer? = null
   )
 
+  fun toggleRunState(){
+    isRunning = !isRunning
+  }
+
   fun updateScreen(image: IntArray){
     screen = image;
   }
@@ -41,30 +42,14 @@ class GLSprite {
   fun draw() {
 //    if (director != null) {
 
-    if(console != null) {
-//      val image = getVideoBuffer()
+    if(isRunning) {
       getVideoBuffer()
       createProgramIfNeeded()
       updateTexture()
-//      if(screen[7550]!= 0){
-//        println(screen[7550])
-//      }
-//      val image = console!!.getVideoBuffer()
-//      println("creating program")
-//      getVideoBuffer()
-//      val image = director!!.videoBuffer()
-//      createProgramIfNeeded()
-//      updateTexture(image)
-//      }
     }
   }
 
   external fun getVideoBuffer(): Unit
-
-//  external fun drawScreenOnce(): Unit
-//  native fun drawScreenOnce(img: IntArray){
-//    updateTexture(img)
-//  }
 
   private fun processImageData(image: IntArray): IntArray{
     return image.map { pixel ->
@@ -127,13 +112,6 @@ class GLSprite {
       glEnableVertexAttribArray(context.posCoordHandle)
     }
   }
-
-//  private fun updateTexture(image: IntArray) {
-//    glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, IMG_WIDTH, IMG_HEIGHT,
-//      GLES11Ext.GL_BGRA, GL_UNSIGNED_BYTE, IntBuffer.wrap(image))
-//    // Draw!
-//    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4)
-//  }
 
   fun updateTexture() {
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, IMG_WIDTH, IMG_HEIGHT,

@@ -17,13 +17,13 @@ void AudioEngine::start(
     mFindClassMethod = findClassMethod;
     AudioStreamBuilder builder;
 //    builder.setCallback(this);
-    builder.setPerformanceMode(PerformanceMode::None);
+    builder.setPerformanceMode(PerformanceMode::LowLatency);
     builder.setUsage(Usage::Game);
 //  builder.setFormat(AudioFormat::Float);
     builder.setFormat(AudioFormat::I16);
     builder.setChannelCount(ChannelCount::Stereo);
-    builder.setSharingMode(SharingMode::Shared);
-    builder.setSampleRate(48000);//96000?
+    builder.setSharingMode(SharingMode::Exclusive);
+    builder.setSampleRate(96000);//96000?
     Result result = builder.openStream(&mStream);
     soundManager = sm;
 
@@ -58,11 +58,12 @@ void AudioEngine::resume() const {
 
 void AudioEngine::writeAudioData(const int16_t * audioData, int32_t numFrames){
     if(!mStream) return;
-
+//    LOGI("audio frames: %i",numFrames);
     auto result = mStream->write(audioData,numFrames,0);
     if(result.value() < 0){
         LOGE("Some error");
     }
+//    LOGI("XRun cnt: %i",mStream->getXRunCount().value());
 }
 
 JNIEnv *AudioEngine::getEnv() {

@@ -152,9 +152,9 @@ void PcePsg::PlayQueuedAudio()
 	uint32_t sampleCount = (uint32_t)blip_read_samples(_leftChannel, _soundBuffer, PcePsg::MaxSamples, 1);
 	blip_read_samples(_rightChannel, _soundBuffer + 1, PcePsg::MaxSamples, 1);
 
-    int32_t frames = _console->_audioEngine->mStream->getAvailableFrames().value();
+//    int32_t frames = _console->_audioEngine->mStream->getAvailableFrames().value();
 
-    _console->_audioEngine->writeAudioData(_soundBuffer,static_cast<int32_t>(sampleCount));
+    _console->_audioEngine->writeAudioData(_soundBuffer,static_cast<int32_t>(sampleCount));//frames);
 	_clockCounter = 0;
 	
 	UpdateSoundOffset();

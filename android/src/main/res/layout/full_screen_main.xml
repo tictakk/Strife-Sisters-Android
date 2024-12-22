@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LayoutContent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".app.MainActivity">
+
+    <FrameLayout
+        android:id="@+id/display_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.felipecsl.android.NesGLSurfaceView
+            android:id="@+id/nesGLSurfaceView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/dpad_frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_gravity="bottom|start"
+                    android:layout_weight="1"
+                    android:visibility="visible"
+                    tools:visibility="visible">
+
+                    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/dpadBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        custom:JV_backgroundColor="#009688"
+                        custom:JV_borderColor="#00796B"
+                        custom:JV_borderWidth="4dp"
+                        custom:JV_buttonColor="#FF6E40"
+                        custom:JV_buttonSizeRatio="15%"
+                        custom:JV_fixedCenter="false" />
+
+                    <!--                    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+                    <!--                        android:id="@+id/dpadBtn"-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_gravity="center_vertical"-->
+                    <!--                        android:clickable="true"-->
+                    <!--                        android:scaleX="1.50"-->
+                    <!--                        android:scaleY="1.50"-->
+                    <!--                        android:translationX="20dp"-->
+                    <!--                        android:translationY="30dp"-->
+                    <!--                        app:backgroundTint="#565555"-->
+                    <!--                        app:srcCompat="@drawable/circle_btn_bg" />-->
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:layout_weight="2">
+
+                    <Button
+                        android:id="@+id/selBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/start_select_bg"
+                        android:translationY="40dp" />
+
+                    <Button
+                        android:id="@+id/runBtn"
+                        android:layout_width="40dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/start_select_bg"
+                        android:translationX="80dp"
+                        android:translationY="40dp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/overlay_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_weight="1"
+                    android:visibility="visible"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/iBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:clickable="true"
+                        android:translationX="-10dp"
+                        android:translationY="10dp"
+                        android:visibility="visible"
+                        app:backgroundTint="#565555"
+                        app:srcCompat="@mipmap/i_button_foreground"
+                        tools:visibility="visible" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/iiBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:clickable="true"
+                        android:translationX="10dp"
+                        android:translationY="40dp"
+                        app:backgroundTint="#565555"
+                        app:srcCompat="@drawable/ic_stat_name" />
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+</LinearLayout>

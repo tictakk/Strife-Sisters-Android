@@ -1,3 +1,5 @@
+project(ktnes)
+
 cmake_minimum_required(VERSION 3.4.1)
 
 add_library( # Specifies the name of the library.
@@ -27,9 +29,8 @@ add_library( # Specifies the name of the library.
 )
 #        src/main/cpp/Shared/Audio/SoundMixer.cpp
 
-
 find_package (oboe REQUIRED CONFIG)
 
 target_link_libraries(ktnes-audio log oboe::oboe)
 
-include_directories("src/main/cpp","src/main/cpp/PCE",.)
+include_directories("src/main/cpp", "src/main/cpp/PCE", .)
