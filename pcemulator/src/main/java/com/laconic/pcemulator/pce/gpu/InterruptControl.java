@@ -1,4 +1,4 @@
-package com.laconic.pcemulator.pce.gpu;
+package com.strifesdroid.pcemulator.pce.gpu;
 
 public class InterruptControl {
 

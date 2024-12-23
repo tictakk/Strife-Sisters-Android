@@ -1,4 +1,4 @@
-package com.laconic.pcemulator.pce.hucard;
+package com.strifesdroid.pcemulator.pce.hucard;
 
 public class Hucard {
     public byte[] data;

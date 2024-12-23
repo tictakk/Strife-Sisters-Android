@@ -1,4 +1,4 @@
-package com.felipecsl.knes
+package com.laconic.strifesdroid
 
 import android.os.Build
 import android.util.Log
@@ -26,7 +26,8 @@ class AudioEngineWrapper {
   // core(s).
   private fun getExclusiveCores(): IntArray {
     return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-      Log.w(TAG,
+      Log.w(
+          TAG,
           "getExclusiveCores() not supported. Only available on API ${Build.VERSION_CODES.N}+")
       intArrayOf()
     } else {

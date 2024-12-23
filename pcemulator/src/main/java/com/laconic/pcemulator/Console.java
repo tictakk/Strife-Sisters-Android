@@ -1,7 +1,7 @@
-package com.laconic.pcemulator;
+package com.strifesdroid.pcemulator;
 
-import com.laconic.pcemulator.pce.PCEngine;
-import com.laconic.pcemulator.pce.io.Gamepad;
+import com.strifesdroid.pcemulator.pce.PCEngine;
+import com.strifesdroid.pcemulator.pce.io.Gamepad;
 
 public class Console {
     private final long CONSOLE_FREQ = 1_789_772;

@@ -1,4 +1,4 @@
-package com.laconic.pcemulator.emulator;
+package com.strifesdroid.pcemulator.emulator;
 
 import java.util.HashMap;
 import java.util.Map;

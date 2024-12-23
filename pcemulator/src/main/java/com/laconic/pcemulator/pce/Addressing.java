@@ -1,4 +1,4 @@
-package com.laconic.pcemulator.pce;
+package com.strifesdroid.pcemulator.pce;
 
 public enum Addressing {
     ZEROPAGE, ABSOLUTE_X, ABSOLUTE_Y, ABSOLUTE, 

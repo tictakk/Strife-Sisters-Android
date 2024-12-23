@@ -1,12 +1,12 @@
-package com.laconic.pcemulator.pce;
+package com.strifesdroid.pcemulator.pce;
 
-import com.laconic.pcemulator.pce.gpu.InterruptControl;
-import com.laconic.pcemulator.pce.gpu.PSG;
-import com.laconic.pcemulator.pce.gpu.Timer;
-import com.laconic.pcemulator.pce.gpu.VCE;
-import com.laconic.pcemulator.pce.gpu.VDC;
-import com.laconic.pcemulator.pce.hucard.Hucard;
-import com.laconic.pcemulator.pce.io.Gamepad;
+import com.strifesdroid.pcemulator.pce.gpu.InterruptControl;
+import com.strifesdroid.pcemulator.pce.gpu.PSG;
+import com.strifesdroid.pcemulator.pce.gpu.Timer;
+import com.strifesdroid.pcemulator.pce.gpu.VCE;
+import com.strifesdroid.pcemulator.pce.gpu.VDC;
+import com.strifesdroid.pcemulator.pce.hucard.Hucard;
+import com.strifesdroid.pcemulator.pce.io.Gamepad;
 
 public class PCEMMU {
 

@@ -1,4 +1,4 @@
-package com.laconic.pcemulator.pce.cpu;
+package com.strifesdroid.pcemulator.pce.cpu;
 
 public class REGISTERS{
     

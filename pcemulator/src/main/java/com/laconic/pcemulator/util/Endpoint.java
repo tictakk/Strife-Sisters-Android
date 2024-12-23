@@ -1,4 +1,4 @@
-package com.laconic.pcemulator.util;
+package com.strifesdroid.pcemulator.util;
 
 public interface Endpoint {
     public int id = 0;
