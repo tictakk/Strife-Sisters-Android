@@ -1,9 +1,8 @@
-package com.felipecsl.knes
+package com.laconic.strifesdroid
 
-import android.opengl.GLES11Ext
 import android.opengl.GLES20
 import android.opengl.GLES30.*
-import java.lang.annotation.Native
+import com.felipecsl.knes.Director
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
@@ -17,7 +16,7 @@ class GLSprite {
   private var isRunning: Boolean = false
 
 //  var screen: IntArray = IntArray(256*240)
-  var screen: IntArray = IntArray(IMG_HEIGHT* IMG_WIDTH)
+  var screen: IntArray = IntArray(IMG_HEIGHT * IMG_WIDTH)
   data class RenderContext(
       val shaderProgram: Int = 0,
       val texSamplerHandle: Int = 0,

@@ -1,10 +1,9 @@
-package com.felipecsl.android
+package com.laconic.android
 
 import android.content.Context
-import android.opengl.EGLContext
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
-import com.felipecsl.knes.GLSprite
+import com.laconic.strifesdroid.GLSprite
 
 class NesGLSurfaceView(
     context: Context,

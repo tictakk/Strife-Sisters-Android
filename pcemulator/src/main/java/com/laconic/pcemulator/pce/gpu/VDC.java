@@ -1,8 +1,8 @@
-package com.laconic.pcemulator.pce.gpu;
+package com.strifesdroid.pcemulator.pce.gpu;
 
 //import com.laconic.gameboy.GBProcessor;
 //import com.laconic.gameboy.GBUtils;
-import com.laconic.pcemulator.pce.gpu.InterruptControl.InterruptType;
+import com.strifesdroid.pcemulator.pce.gpu.InterruptControl.InterruptType;
 
 
 public class VDC {

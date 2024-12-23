@@ -27,7 +27,7 @@ JNI_OnLoad(JavaVM *vm, void *reserved) {
   if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
     return -1;
   }
-  jclass clsMain = env->FindClass("com/felipecsl/knes/app/MainActivity");
+  jclass clsMain = env->FindClass("com/laconic/strifesdroid/app/MainActivity");
   jclass classClass = env->GetObjectClass(clsMain);
   jclass classLoaderClass = env->FindClass("java/lang/ClassLoader");
   jmethodID getClassLoaderMethod =
@@ -77,14 +77,14 @@ jobject /* this */) {
 extern "C"
 //JNIEXPORT jintArray JNICALL
 JNIEXPORT void JNICALL
-Java_com_felipecsl_knes_GLSprite_getVideoBuffer(
+Java_com_laconic_strifesdroid_GLSprite_getVideoBuffer(
         JNIEnv *env,
         jobject glsprite /* this */
         ){
     int ARRAY_SIZE = 256 * 240;
     int offset = 16;
 
-    jclass clazz = env->FindClass("com/felipecsl/knes/GLSprite");
+    jclass clazz = env->FindClass("com/laconic/strifesdroid/GLSprite");
     jmethodID mid = env->GetMethodID(clazz,"updateScreen","([I)V");
 
     screen = pceConsole->GetVpc()->_currentOutBuffer;
@@ -102,7 +102,8 @@ Java_com_felipecsl_knes_GLSprite_getVideoBuffer(
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_felipecsl_knes_app_MainActivity_loadROM(
+//Java_com_laconic_strifesdroid_app_MainActivity_loadROM(
+Java_com_laconic_android_Emulator_loadROM(
         JNIEnv *env,
         jobject /* this */,
         jbyteArray romData
@@ -120,7 +121,7 @@ Java_com_felipecsl_knes_app_MainActivity_loadROM(
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_felipecsl_knes_app_MainActivity_pressButton(
+Java_com_laconic_android_GamepadOverlay_pressButton(
         JNIEnv *env,
         jobject /* this */,
         jint button
@@ -132,7 +133,7 @@ Java_com_felipecsl_knes_app_MainActivity_pressButton(
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_felipecsl_knes_app_MainActivity_releaseButton(
+Java_com_laconic_android_GamepadOverlay_releaseButton(
         JNIEnv *env,
         jobject /* this */,
         jint button
@@ -144,7 +145,8 @@ Java_com_felipecsl_knes_app_MainActivity_releaseButton(
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_felipecsl_knes_app_MainActivity_runFrame(
+//Java_com_laconic_strifesdroid_app_MainActivity_runFrame(
+Java_com_laconic_android_Emulator_runFrame(
         JNIEnv *env,
         jobject /* this */
         ){
@@ -153,7 +155,7 @@ Java_com_felipecsl_knes_app_MainActivity_runFrame(
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_felipecsl_knes_JniKt_startAudioEngine(
+Java_com_laconic_strifesdroid_JniKt_startAudioEngine(
     JNIEnv *env,
     jobject instance,
     jintArray jCpuIds
@@ -164,41 +166,43 @@ Java_com_felipecsl_knes_JniKt_startAudioEngine(
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_felipecsl_knes_JniKt_stopAudioEngine(JNIEnv *env, jobject instance) {
+Java_com_laconic_strifesdroid_JniKt_stopAudioEngine(JNIEnv *env, jobject instance) {
   engine.stop();
 }
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_felipecsl_knes_JniKt_pauseAudioEngine(JNIEnv *env, jobject instance) {
+Java_com_laconic_strifesdroid_JniKt_pauseAudioEngine(JNIEnv *env, jobject instance) {
   engine.pause();
 }
 
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_felipecsl_knes_JniKt_resumeAudioEngine(JNIEnv *env, jobject instance) {
+Java_com_laconic_strifesdroid_JniKt_resumeAudioEngine(JNIEnv *env, jobject instance) {
   engine.resume();
 }
 
 extern "C"
 JNIEXPORT jintArray JNICALL
-Java_com_felipecsl_knes_app_MainActivity_00024Companion_getAudioBuffer(JNIEnv *env, jobject thiz) {
+Java_com_laconic_strifesdroid_app_MainActivity_00024Companion_getAudioBuffer(JNIEnv *env, jobject thiz) {
 
     int16_t* audioBuffer = pceConsole->GetAudioBuffer();
     int aBuffer[8000];
     for(int i=0; i<8000; i++){
         aBuffer[i] = audioBuffer[i];
     }
-//    int* aBuffer = reinterpret_cast<int *>(pceConsole->GetAudioBuffer());
     jintArray intJavaArrayScreen = env->NewIntArray(8000);
-//    for(int i=0; i<ARRAY_SIZE; i++){
-//        vscreen[i] = screen[(48+((i/256)*682))+(i%256)];
-//    }
-    //i=7550 is not zero, a lot more
-//    env->SetIntArrayRegion(intJavaArray,0,ARRAY_SIZE,
-//                           reinterpret_cast<const jint *>(pceConsole->GetVpc()->_currentOutBuffer));
 
     env->SetIntArrayRegion(intJavaArrayScreen,0,8000,aBuffer);
     return intJavaArrayScreen;
-//    return (jintArray)pceConsole->GetAudioBuffer();
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_laconic_android_Emulator_saveState(JNIEnv *env, jobject thiz) {
+    // TODO: implement saveState()
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_laconic_android_Emulator_loadState(JNIEnv *env, jobject thiz) {
+    // TODO: implement loadState()
 }

@@ -1,4 +1,4 @@
-package com.laconic.pcemulator.pce.io;
+package com.strifesdroid.pcemulator.pce.io;
 
 public class Gamepad {
 

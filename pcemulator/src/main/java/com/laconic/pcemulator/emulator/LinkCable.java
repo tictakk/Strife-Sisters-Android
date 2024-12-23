@@ -1,8 +1,8 @@
-package com.laconic.pcemulator.emulator;
+package com.strifesdroid.pcemulator.emulator;
 
 import java.util.ArrayList;
 
-import com.laconic.pcemulator.util.Endpoint;// gameboy.Endpoint;
+import com.strifesdroid.pcemulator.util.Endpoint;// gameboy.Endpoint;
 //import com.laconic.gameboy.GBInterruptManager;
 //import com.laconic.gameboy.GBSerial;
 

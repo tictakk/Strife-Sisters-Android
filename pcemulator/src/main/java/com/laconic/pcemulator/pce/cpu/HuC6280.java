@@ -1,15 +1,15 @@
-package com.laconic.pcemulator.pce.cpu;
+package com.strifesdroid.pcemulator.pce.cpu;
 
-import com.laconic.pcemulator.emulator.EmulatorUtils;
-import com.laconic.pcemulator.pce.PCEMMU;
-import com.laconic.pcemulator.pce.gpu.InterruptControl;
+import com.strifesdroid.pcemulator.emulator.EmulatorUtils;
+import com.strifesdroid.pcemulator.pce.PCEMMU;
+import com.strifesdroid.pcemulator.pce.gpu.InterruptControl;
 
 import java.util.ArrayList;
 
-import com.laconic.pcemulator.emulator.Emulator;
-import com.laconic.pcemulator.emulator.EmulatorState;
-import com.laconic.pcemulator.emulator.EmulatorType;
-import com.laconic.pcemulator.emulator.StatefulComponent;
+import com.strifesdroid.pcemulator.emulator.Emulator;
+import com.strifesdroid.pcemulator.emulator.EmulatorState;
+import com.strifesdroid.pcemulator.emulator.EmulatorType;
+import com.strifesdroid.pcemulator.emulator.StatefulComponent;
 
 public class HuC6280 extends EmulatorState implements Emulator, StatefulComponent {
 

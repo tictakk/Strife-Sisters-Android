@@ -1,6 +1,6 @@
-package com.laconic.pcemulator.emulator;
+package com.strifesdroid.pcemulator.emulator;
 
-import com.laconic.pcemulator.util.Palette;
+import com.strifesdroid.pcemulator.util.Palette;
 
 //public class Display extends JPanel{
 public class Display{

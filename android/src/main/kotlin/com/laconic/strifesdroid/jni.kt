@@ -1,4 +1,4 @@
-package com.felipecsl.knes
+package com.laconic.strifesdroid
 
 external fun startAudioEngine(cpuIds: IntArray)
 external fun stopAudioEngine()

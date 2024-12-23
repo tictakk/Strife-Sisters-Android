@@ -1,4 +1,4 @@
-package com.laconic.pcemulator;
+package com.strifesdroid.pcemulator;
 
 import org.junit.Test;
 

@@ -1,8 +1,8 @@
-package com.laconic.pcemulator.emulator;
+package com.strifesdroid.pcemulator.emulator;
 
 //import com.laconic.gameboy.GBRegisters;
-import com.laconic.pcemulator.emulator.EmulatorUtils;
-import com.laconic.pcemulator.util.SmallStack;
+import com.strifesdroid.pcemulator.emulator.EmulatorUtils;
+import com.strifesdroid.pcemulator.util.SmallStack;
 
 import java.io.File;
 import java.io.FileOutputStream;

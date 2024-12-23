@@ -1,4 +1,4 @@
-package com.laconic.pcemulator.pce;
+package com.strifesdroid.pcemulator.pce;
 
 public class PCEMapper {
     

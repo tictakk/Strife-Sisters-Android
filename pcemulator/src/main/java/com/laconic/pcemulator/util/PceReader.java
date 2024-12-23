@@ -1,6 +1,6 @@
-package com.laconic.pcemulator.util;
+package com.strifesdroid.pcemulator.util;
 
-import com.laconic.pcemulator.pce.hucard.Hucard;
+import com.strifesdroid.pcemulator.pce.hucard.Hucard;
 
 public class PceReader extends RomReader{
     

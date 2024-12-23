@@ -1,4 +1,4 @@
-package com.laconic.pcemulator.emulator;
+package com.strifesdroid.pcemulator.emulator;
 
 //import com.laconic.gameboy.GBJoypad;
 //import com.laconic.pcemulator.emulator gameboy.GBProcessor;

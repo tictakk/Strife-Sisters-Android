@@ -1,4 +1,4 @@
-package com.laconic.pcemulator.util;
+package com.strifesdroid.pcemulator.util;
 
 import android.graphics.Color;
 

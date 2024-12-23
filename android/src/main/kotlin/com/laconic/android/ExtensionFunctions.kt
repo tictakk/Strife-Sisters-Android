@@ -1,4 +1,4 @@
-package com.felipecsl.android
+package com.laconic.android
 
 @Suppress("NOTHING_TO_INLINE")
 inline infix fun Byte.and(other: Int): Int = (this.toInt() and other)

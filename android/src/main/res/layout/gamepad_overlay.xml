@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="30dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/dpad_frame"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_gravity="bottom|start"
+            android:layout_weight="1"
+            android:visibility="visible">
+
+            <io.github.controlwear.virtual.joystick.android.JoystickView
+                android:id="@+id/dpadBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:JV_backgroundColor="#6141C8"
+                app:JV_borderColor="#291F7A"
+                app:JV_borderWidth="4dp"
+                app:JV_buttonColor="#FF6E40"
+                app:JV_buttonSizeRatio="15%"
+                app:JV_fixedCenter="false" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_weight="2">
+
+            <Button
+                android:id="@+id/selBtn"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/start_select_bg"
+                android:translationY="40dp" />
+
+            <Button
+                android:id="@+id/runBtn"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/start_select_bg"
+                android:translationX="80dp"
+                android:translationY="40dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/overlay_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"
+            android:layout_gravity="bottom|end"
+            android:layout_weight="1"
+            android:visibility="visible">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/iBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:background="@drawable/circle_btn_bg"
+                android:clickable="true"
+                android:src="@mipmap/i_button_foreground"
+                android:translationX="-10dp"
+                android:translationY="10dp"
+                android:visibility="visible"
+                app:backgroundTint="@color/cardview_dark_background" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/iiBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:clickable="true"
+                android:src="@drawable/ic_stat_name"
+                android:translationX="10dp"
+                android:translationY="30dp"
+                app:backgroundTint="@color/cardview_dark_background" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/settingsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            android:scaleX=".5"
+            android:scaleY=".5"
+            android:src="@drawable/settings"
+            android:translationY="-20dp"
+            android:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dropDown"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:translationY="-20dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</FrameLayout>
