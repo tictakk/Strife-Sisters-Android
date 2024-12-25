@@ -1,9 +1,8 @@
-package com.laconic.android
+package com.laconic.strifesdroid
 
 import android.content.Context
 import android.opengl.GLSurfaceView
 import android.util.AttributeSet
-import com.laconic.strifesdroid.GLSprite
 
 class NesGLSurfaceView(
     context: Context,

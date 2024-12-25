@@ -3,12 +3,13 @@
 #include "PCE/PceConstants.h"
 #include "PCE/PceTypes.h"
 #include "PCE/PcePsgChannel.h"
+#include "Utilities/ISerializable.h"
 
 class PceConsole;
 // class SoundMixer;
 struct blip_t;
 
-class PcePsg final
+class PcePsg final : public ISerializable
 {
 private:
 	static constexpr int MaxSamples = 4000;
@@ -47,4 +48,5 @@ public:
 
 	void PlayQueuedAudio();
     int16_t* GetAudioBuffer();
+    void Serialize(Serializer& s) override;
 };

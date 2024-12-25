@@ -102,59 +102,6 @@ Java_com_laconic_strifesdroid_GLSprite_getVideoBuffer(
 
 extern "C"
 JNIEXPORT void JNICALL
-//Java_com_laconic_strifesdroid_app_MainActivity_loadROM(
-Java_com_laconic_android_Emulator_loadROM(
-        JNIEnv *env,
-        jobject /* this */,
-        jbyteArray romData
-        ){
-//    jbyte *rom_data;
-//    jbyteArray rom_data;
-//    jsize size = env->GetArrayLength(romData);
-//    rom_data = (jbyteArray) env->GetByteArrayElements(romData,NULL);
-    soundManager = SoundManager();
-    pceConsole = new PceConsole(&soundManager,&engine);
-    pceConsole->LoadRom(javaArrayToStdCharVector(env,romData));
-
-    //    env->ReleaseByteArrayElements(romData,(jbyte *)rom_data,JNI_ABORT);
-}
-
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_laconic_android_GamepadOverlay_pressButton(
-        JNIEnv *env,
-        jobject /* this */,
-        jint button
-        ){
-    if(pceConsole != nullptr){
-        pceConsole->SetControllerInput(button);//5);
-    }
-}
-
-extern "C"
-JNIEXPORT void JNICALL
-Java_com_laconic_android_GamepadOverlay_releaseButton(
-        JNIEnv *env,
-        jobject /* this */,
-        jint button
-){
-    if(pceConsole != nullptr){
-        pceConsole->UnsetControllerInput(button);
-    }
-}
-
-extern "C"
-JNIEXPORT void JNICALL
-//Java_com_laconic_strifesdroid_app_MainActivity_runFrame(
-Java_com_laconic_android_Emulator_runFrame(
-        JNIEnv *env,
-        jobject /* this */
-        ){
-    pceConsole->RunFrame();
-}
-
-extern "C"
-JNIEXPORT void JNICALL
 Java_com_laconic_strifesdroid_JniKt_startAudioEngine(
     JNIEnv *env,
     jobject instance,
@@ -196,13 +143,58 @@ Java_com_laconic_strifesdroid_app_MainActivity_00024Companion_getAudioBuffer(JNI
     env->SetIntArrayRegion(intJavaArrayScreen,0,8000,aBuffer);
     return intJavaArrayScreen;
 }
+
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_laconic_android_Emulator_saveState(JNIEnv *env, jobject thiz) {
-    // TODO: implement saveState()
+Java_com_laconic_strifesdroid_GamepadOverlay_pressButton(JNIEnv *env, jobject thiz, jint button) {
+    if(pceConsole != nullptr){
+        pceConsole->SetControllerInput(button);//5);
+    }
 }
 extern "C"
 JNIEXPORT void JNICALL
-Java_com_laconic_android_Emulator_loadState(JNIEnv *env, jobject thiz) {
-    // TODO: implement loadState()
+Java_com_laconic_strifesdroid_GamepadOverlay_releaseButton(JNIEnv *env, jobject thiz, jint button) {
+    if(pceConsole != nullptr){
+        pceConsole->UnsetControllerInput(button);
+    }
 }
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_laconic_strifesdroid_Emulator_loadROM(JNIEnv *env, jobject thiz, jbyteArray rom_data) {
+    if(pceConsole == nullptr){
+        soundManager = SoundManager();
+        pceConsole = new PceConsole(&soundManager,&engine);
+        pceConsole->LoadRom(javaArrayToStdCharVector(env,rom_data));
+    }else{
+        pceConsole->LoadRom(javaArrayToStdCharVector(env,rom_data));
+    }
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_laconic_strifesdroid_Emulator_runFrame(JNIEnv *env, jobject thiz) {
+    pceConsole->RunFrame();
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_laconic_strifesdroid_Emulator_saveState(JNIEnv *env, jobject thiz, jstring file) {
+    jboolean isCopy;
+    const char *convertedValue = env->GetStringUTFChars(file,&isCopy);
+    pceConsole->SaveState(std::string(convertedValue,env->GetStringLength(file)));
+    env->ReleaseStringUTFChars(file, convertedValue);
+    //TODO: really need to have a way to determine if this was successful
+}
+extern "C"
+JNIEXPORT void JNICALL
+Java_com_laconic_strifesdroid_Emulator_loadState(JNIEnv *env, jobject thiz, jstring file) {
+    jboolean isCopy;
+    const char *convertedValue = env->GetStringUTFChars(file,&isCopy);
+    pceConsole->LoadState(std::string(convertedValue,env->GetStringLength(file)));
+    env->ReleaseStringUTFChars(file, convertedValue);
+    //TODO: really need to have a way to determine if this was successful
+}
+
+//extern "C"
+//JNIEXPORT void JNICALL
+//Java_com_laconic_strifesdroid_Emulator_reset(JNIEnv *env, jobject thiz) {
+//    pceConsole->Reset();
+//}

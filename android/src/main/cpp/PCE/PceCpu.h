@@ -8,10 +8,11 @@
 #include "pch.h"
 #include "PCE/PceTypes.h"
 #include "PCE/MemoryOperationType.h"
+#include "Utilities/ISerializable.h"
 
 class PceMemoryManager;
 
-class PceCpu final
+class PceCpu final : public ISerializable
 {
 private:
 	static constexpr uint16_t ResetVector = 0xFFFE;
@@ -298,7 +299,7 @@ public:
 
 	void Exec();
 
-//	void Serialize(Serializer& s) override;
+	void Serialize(Serializer& s) override;
 
 #ifdef DUMMYCPU
 private:

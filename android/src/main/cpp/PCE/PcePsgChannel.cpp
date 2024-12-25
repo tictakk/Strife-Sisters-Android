@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "PCE/PcePsgChannel.h"
 #include "PCE/PcePsg.h"
+#include "Utilities/Serializer.h"
 
 PcePsgChannel::PcePsgChannel()
 {
@@ -159,4 +160,26 @@ void PcePsgChannel::Write(uint16_t addr, uint8_t value)
 			_state.NoiseFrequency = (value & 0x1F);
 			break;
 	}
+}
+
+void PcePsgChannel::Serialize(Serializer& s)
+{
+    SV(_state.Amplitude);
+    SV(_state.CurrentOutput);
+    SV(_state.DdaEnabled);
+    SV(_state.DdaOutputValue);
+    SV(_state.Enabled);
+    SV(_state.Frequency);
+    SV(_state.LeftVolume);
+    SV(_state.NoiseEnabled);
+    SV(_state.NoiseFrequency);
+    SV(_state.NoiseLfsr);
+    SV(_state.NoiseOutput);
+    SV(_state.NoiseTimer);
+    SV(_state.ReadAddr);
+    SV(_state.RightVolume);
+    SV(_state.Timer);
+    SV(_state.WriteAddr);
+
+    SVArray(_state.WaveData, 0x20);
 }

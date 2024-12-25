@@ -5,7 +5,7 @@
 //#include "Shared/EmuSettings.h"
 //#include "Shared/InputHud.h"
 //#include "Utilities/StringUtilities.h"
-//#include "Utilities/Serializer.h"
+#include "Utilities/Serializer.h"
 
 BaseControlDevice::BaseControlDevice(ControllerType type, uint8_t port, KeyMappingSet keyMappingSet)
 {
@@ -75,8 +75,8 @@ void BaseControlDevice::ClearState()
 
 ControlDeviceState BaseControlDevice::GetRawState()
 {
-//    auto lock = _stateLock.AcquireSafe();
-//    return _state;
+    auto lock = _stateLock.AcquireSafe();
+    return _state;
 }
 
 void BaseControlDevice::DrawController(InputHud& hud)
@@ -323,9 +323,9 @@ bool BaseControlDevice::IsConnected()
 //    }
 //}
 
-//void BaseControlDevice::Serialize(Serializer &s)
-//{
-//    auto lock = _stateLock.AcquireSafe();
-//    SV(_strobe);
-//    SVVector(_state.State);
-//}
+void BaseControlDevice::Serialize(Serializer &s)
+{
+    auto lock = _stateLock.AcquireSafe();
+    SV(_strobe);
+    SVVector(_state.State);
+}

@@ -1,8 +1,7 @@
-package com.laconic.android
+package com.laconic.strifesdroid
 
 import android.opengl.GLES20
 import android.opengl.GLSurfaceView
-import com.laconic.strifesdroid.GLSprite
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 

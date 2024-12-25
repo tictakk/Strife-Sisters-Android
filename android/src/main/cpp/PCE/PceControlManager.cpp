@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "PCE/PceControlManager.h"
 #include "PCE/Input/PceController.h"
+#include "Utilities/Serializer.h"
 //#include "PCE/Input/PceTurboTap.h"
 //#include "PCE/Input/PceAvenuePad6.h"
 
@@ -95,14 +96,14 @@ void PceControlManager::UpdateControlDevices()
 	// }
 }
 
-// void PceControlManager::Serialize(Serializer& s)
-// {
-	// if(!s.IsSaving()) {
-	// 	UpdateControlDevices();
-	// }
+ void PceControlManager::Serialize(Serializer& s)
+ {
+	 if(!s.IsSaving()) {
+	 	UpdateControlDevices();
+	 }
 
-	// BaseControlManager::Serialize(s);
-	// for(int i = 0; i < (int)_controlDevices.size(); i++) {
-	// 	SVI(_controlDevices[i]);
-	// }
-// }
+//	 BaseControlManager::Serialize(s);
+	 for(int i = 0; i < (int)_controlDevices.size(); i++) {
+	 	SVI(_controlDevices[i]);
+	 }
+ }

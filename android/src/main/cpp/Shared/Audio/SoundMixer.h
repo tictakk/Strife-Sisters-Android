@@ -1,7 +1,7 @@
 #pragma once
 #include "pch.h"
 //#include "Core/Shared/Interfaces/IAudioDevice.h"
-#include "Utilities/safe_ptr.h"
+#include "Shared/safe_ptr.h"
 
 class Emulator;
 class Equalizer;

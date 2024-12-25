@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.laconic.strifesdroid"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
   <uses-feature
     android:glEsVersion="0x00020000"
@@ -8,6 +7,7 @@
 
   <application
       android:name=".StrifesApplication"
+      android:permission=""
       android:allowBackup="true"
       android:icon="@drawable/title"
       android:roundIcon="@mipmap/ic_launcher_round"
@@ -15,10 +15,10 @@
       android:label="@string/app_name"
       android:theme="@style/AppTheme">
       <activity
-        android:name=".app.MainActivity"
-        android:label="@string/app_name"
-        android:configChanges="orientation"
-        android:screenOrientation="sensorLandscape"
+          android:name=".app.MainActivity"
+          android:exported="true"
+          android:configChanges="orientation"
+          android:screenOrientation="sensorLandscape"
             >
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>

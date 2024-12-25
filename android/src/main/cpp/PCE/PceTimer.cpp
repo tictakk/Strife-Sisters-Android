@@ -2,6 +2,7 @@
 #include "PCE/PceTimer.h"
 #include "PCE/PceConsole.h"
 #include "PCE/PceMemoryManager.h"
+#include "Utilities/Serializer.h"
 
 PceTimer::PceTimer(PceConsole* console)
 {
@@ -55,6 +56,14 @@ uint8_t PceTimer::Read(uint16_t addr)
 	} else {
 		return _state.Counter;
 	}
+}
+
+void PceTimer::Serialize(Serializer& s)
+{
+    SV(_state.ReloadValue);
+    SV(_state.Counter);
+    SV(_state.Scaler);
+    SV(_state.Enabled);
 }
 
 //void PceTimer::Reset(){}

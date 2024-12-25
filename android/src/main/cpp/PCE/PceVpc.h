@@ -5,11 +5,12 @@
 #include "PCE/PceVdc.h"
 #include "PCE/PceTimer.h"
 #include "Timer.h"
+#include "Utilities/ISerializable.h"
 
 class PceVce;
 class PceConsole;
 
-class PceVpc final
+class PceVpc final : public ISerializable
 {
 public:
 	static constexpr uint16_t SpritePixelFlag = 0x8000;
@@ -68,5 +69,5 @@ public:
 	uint16_t* GetScreenBuffer() { return _currentOutBuffer; }
 	uint16_t* GetPreviousScreenBuffer() { return _currentOutBuffer == _outBuffer[0] ? _outBuffer[1] : _outBuffer[0]; }
 
-	// void Serialize(Serializer& s) override;
+	 void Serialize(Serializer& s) override;
 };

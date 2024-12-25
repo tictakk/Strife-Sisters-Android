@@ -7,6 +7,32 @@
     android:padding="30dp">
 
     <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/settingsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            android:scaleX=".5"
+            android:scaleY=".5"
+            android:src="@drawable/settings"
+            android:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dropDown"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            tools:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
@@ -88,33 +114,6 @@
                 android:translationY="30dp"
                 app:backgroundTint="@color/cardview_dark_background" />
         </FrameLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="200dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:orientation="vertical">
-
-        <ImageButton
-            android:id="@+id/settingsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_gravity="end"
-            android:background="@android:color/transparent"
-            android:scaleX=".5"
-            android:scaleY=".5"
-            android:src="@drawable/settings"
-            android:translationY="-20dp"
-            android:visibility="visible" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dropDown"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:translationY="-20dp"
-            android:visibility="gone" />
 
     </LinearLayout>
 

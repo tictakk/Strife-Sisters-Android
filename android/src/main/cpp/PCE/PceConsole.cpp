@@ -10,6 +10,7 @@
 #include "PCE/PceTimer.h"
 #include "PCE/PceConstants.h"
 #include "PCE/IPceMapper.h"
+#include "Utilities/Serializer.h"
 //#include "PCE/CdRom/PceCdRom.h"
 //#include "PCE/CdRom/PceArcadeCard.h"
 //#include "PCE/PceSf2RomMapper.h"
@@ -386,33 +387,54 @@ void PceConsole::InitHesPlayback(uint8_t selectedTrack)
 //	state.HasCdRom = _cdrom != nullptr;
 //}
 
-// void PceConsole::Serialize(Serializer& s)
-// {
-// 	SV(_cpu);
-// 	SV(_vdc);
-// 	if(_vdc2) {
-// 		SV(_vdc2);
-// 	}
-// 	SV(_vpc);
-// 	SV(_vce);
-// 	SV(_psg);
-// 	SV(_memoryManager);
-// 	SV(_timer);
+ void PceConsole::Serialize(Serializer& s)
+ {
+ 	SV(_cpu);
+ 	SV(_vdc);
+ 	if(_vdc2) {
+ 		SV(_vdc2);
+ 	}
+ 	SV(_vpc);
+ 	SV(_vce);
+ 	SV(_psg);
+ 	SV(_memoryManager);
+ 	SV(_timer);
 
 // 	if(_cdrom) {
 // 		SV(_cdrom);
 // 	}
 
-// 	if(_mapper) {
-// 		SV(_mapper);
-// 	}
+ 	if(_mapper) {
+ 		SV(_mapper);
+ 	}
 
-// 	SV(_controlManager);
-// }
+ 	SV(_controlManager);
+ }
 
 void PceConsole::InitializeRam(void* data, uint32_t length)
 {
     memset(data,0,length);//do I really need to do this?
 //	EmuSettings* settings = _emu->GetSettings();
 //	settings->InitializeRam(settings->GetPcEngineConfig().RamPowerOnState, data, length);
+}
+
+void PceConsole::SaveState(string filename)
+{
+    ofstream file(filename);
+
+    Serializer *s = new Serializer(4,true,SerializeFormat::Binary);
+    s->Stream(*this,"");
+    s->SaveTo(file,0);
+
+    file.close();
+}
+
+void PceConsole::LoadState(string filename)
+{
+    ifstream file(filename);
+
+    Serializer *s = new Serializer(4,false,SerializeFormat::Binary);
+    s->LoadFrom(file);
+    s->Stream(*this,"");
+    file.close();
 }

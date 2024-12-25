@@ -4,6 +4,6 @@
         <item>save</item>
         <item>load</item>
         <item>reset</item>
-        <item>exit</item>
+<!--        <item>exit</item>-->
     </string-array>
 </resources>

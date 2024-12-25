@@ -6,6 +6,7 @@
 #include "PCE/PceMemoryManager.h"
 #include "PCE/PceControlManager.h"
 #include "PCE/PceConsole.h"
+#include "Utilities/Serializer.h"
 
 PceVpc::PceVpc(PceConsole* console, PceVce* vce)
 {
@@ -361,18 +362,18 @@ void PceVpc::SetPriorityConfig(PceVpcPixelWindow wnd, uint8_t value)
 	}
 }
 
-// void PceVpc::Serialize(Serializer& s)
-// {
-// 	SV(_state.HasIrqVdc1);
-// 	SV(_state.HasIrqVdc2);
-// 	SV(_state.Priority1);
-// 	SV(_state.Priority2);
-// 	SV(_state.StToVdc2Mode);
-// 	SV(_state.Window1);
-// 	SV(_state.Window2);
-// 	for(int i = 0; i < 4; i++) {
-// 		SVI(_state.WindowCfg[i].PriorityMode);
-// 		SVI(_state.WindowCfg[i].Vdc1Enabled);
-// 		SVI(_state.WindowCfg[i].Vdc2Enabled);
-// 	}
-// }
+ void PceVpc::Serialize(Serializer& s)
+ {
+ 	SV(_state.HasIrqVdc1);
+ 	SV(_state.HasIrqVdc2);
+ 	SV(_state.Priority1);
+ 	SV(_state.Priority2);
+ 	SV(_state.StToVdc2Mode);
+ 	SV(_state.Window1);
+ 	SV(_state.Window2);
+ 	for(int i = 0; i < 4; i++) {
+ 		SVI(_state.WindowCfg[i].PriorityMode);
+ 		SVI(_state.WindowCfg[i].Vdc1Enabled);
+ 		SVI(_state.WindowCfg[i].Vdc2Enabled);
+ 	}
+ }

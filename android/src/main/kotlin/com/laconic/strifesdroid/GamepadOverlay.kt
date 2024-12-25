@@ -1,4 +1,4 @@
-package com.laconic.android
+package com.laconic.strifesdroid
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,14 +6,13 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.laconic.strifesdroid.R
 import com.laconic.strifesdroid.app.MainActivity
-import com.laconic.strifesdroid.databinding.GamepadOverlayBinding
 import com.laconic.util.RecyclerAdapter
 import io.github.controlwear.virtual.joystick.android.JoystickView
 
@@ -39,18 +38,13 @@ class GamepadOverlay(private val ctx: Context, attrs: AttributeSet) : LinearLayo
     init{
         context.theme.obtainStyledAttributes(
             attrs,
-            R.styleable.View,
+            androidx.appcompat.R.styleable.View,
             0, 0).apply {
         }
 
         inflate(context,R.layout.gamepad_overlay,this)
+        val recyclerAdapter = RecyclerAdapter(resources.getStringArray(R.array.settings_options))
 
-//        settingsBtn.setOnTouchListener{ v, e ->
-//            if(e.action == MotionEvent.ACTION_UP) {
-//                activity.toggleConsoleState()
-//            }
-//            true
-//        }
         val onButtonTouched = { b: Pad ->
             View.OnTouchListener { _, e ->
                 if (false) {
@@ -65,8 +59,8 @@ class GamepadOverlay(private val ctx: Context, attrs: AttributeSet) : LinearLayo
             }
         }
 
+
         settingsBtn.setOnClickListener{
-//            println("drop down: "+dropDwn.visibility)
             activity.toggleConsoleState()
             if(dropDwn.visibility == View.GONE){
                 dropDwn.visibility = View.VISIBLE
@@ -74,18 +68,23 @@ class GamepadOverlay(private val ctx: Context, attrs: AttributeSet) : LinearLayo
                 dropDwn.visibility = View.GONE
             }
         }
-        dropDwn.layoutManager = LinearLayoutManager(this.ctx)
-        dropDwn.adapter = RecyclerAdapter(resources.getStringArray(R.array.settings_options))
 
-        dropDwn.setOnTouchListener{ v, e ->
-            if(e.action == MotionEvent.ACTION_UP) {
-                v.visibility = View.GONE
-                activity.toggleConsoleState()
-                //will need to implement the correct functions for each menu option
-                //save, load, restart, exit
+        recyclerAdapter.setOnClickListener(object: RecyclerAdapter.OnClickListener{
+            override fun onClick(position: Int) {
+//                println("item pos: $position")
+                if(position == 0){
+//                    println("save")
+                    save()
+                }else if(position == 1){
+//                    println("load")
+                    load()
+                }else if(position == 2){
+                    reset()
+                }
             }
-            true
-        }
+        })
+        dropDwn.layoutManager = LinearLayoutManager(this.ctx)
+        dropDwn.adapter = recyclerAdapter
 
         joystick.setOnMoveListener(JoystickView.OnMoveListener{ a, s ->
             releaseButton(Pad.BUTTON_LEFT.ordinal);
@@ -137,5 +136,43 @@ class GamepadOverlay(private val ctx: Context, attrs: AttributeSet) : LinearLayo
         selBtn.alpha = alpha
         joystick.alpha = alpha
         settingsBtn.alpha = alpha
+    }
+
+    fun save(){
+        val builder = AlertDialog.Builder(ctx)
+        builder.setMessage("Are you sure you want to save your game state?")
+            .setPositiveButton("Save"){ dialog, id ->
+                activity.maybeSaveState()
+                dropDwn.visibility = GONE
+            }.setNegativeButton("Cancel"){ dialog, id ->
+
+            }.show()
+    }
+
+    fun load(){
+        val builder = AlertDialog.Builder(ctx)
+        builder.setMessage("Are you sure you want to load your game state?")
+            .setPositiveButton("Load"){ dialog, id ->
+                activity.maybeRestoreState()
+                dropDwn.visibility = GONE
+            }.setNegativeButton("Cancel"){ dialog, id ->
+
+            }.show()
+    }
+
+    fun reset()
+    {
+        val builder = AlertDialog.Builder(ctx)
+        builder.setMessage("Are you sure you want to reset game?")
+            .setPositiveButton("Reset"){ dialog, id ->
+                activity.reset()
+                dropDwn.visibility = GONE
+            }.setNegativeButton("Cancel"){ dialog, id ->
+
+            }.show()
+    }
+
+    fun hideDropdown(){
+        dropDwn.visibility = GONE
     }
 }

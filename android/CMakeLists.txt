@@ -1,5 +1,7 @@
 project(ktnes)
 
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -g -O0 -std=c++17 -fexceptions")
+
 cmake_minimum_required(VERSION 3.4.1)
 
 add_library( # Specifies the name of the library.
@@ -26,6 +28,11 @@ add_library( # Specifies the name of the library.
         src/main/cpp/Shared/ControlDeviceState.cpp
         src/main/cpp/Shared/BaseControlDevice.cpp
         src/main/cpp/PCE/PceControlManager.cpp
+        src/main/cpp/Utilities/Serializer.cpp
+        src/main/cpp/Shared/SimpleLock.cpp
+        src/main/cpp/Shared/safe_ptr.h
+        src/main/cpp/Utilities/miniz.cpp
+        src/main/cpp/Utilities/UTF8Util.cpp
 )
 #        src/main/cpp/Shared/Audio/SoundMixer.cpp
 
@@ -34,3 +41,5 @@ find_package (oboe REQUIRED CONFIG)
 target_link_libraries(ktnes-audio log oboe::oboe)
 
 include_directories("src/main/cpp", "src/main/cpp/PCE", .)
+#target_compile_features(ktnes PUBLIC cxx_std_17)
+#set(CMAKE_CXX_STANDARD "C++ standard" 17)

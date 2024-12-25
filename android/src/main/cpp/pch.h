@@ -33,7 +33,7 @@
 #include <deque>
 #include <algorithm>
 
-//#include "Utilities/UTF8Util.h"
+#include "Utilities/UTF8Util.h"
 
 #ifdef _MSC_VER
 	#define __noinline __declspec(noinline)
@@ -61,8 +61,8 @@ using std::ios;
 using std::istream;
 using std::ostream;
 using std::stringstream;
-//using utf8::ifstream;
-//using utf8::ofstream;
+using utf8::ifstream;
+using utf8::ofstream;
 using std::list;
 using std::max;
 using std::string;

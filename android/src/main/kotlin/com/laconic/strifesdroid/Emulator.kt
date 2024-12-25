@@ -1,10 +1,10 @@
-package com.laconic.android
+package com.laconic.strifesdroid
 
 import android.content.Context
-import com.felipecsl.knes.MS_PER_FRAME
-import com.felipecsl.knes.currentTimeMs
-import com.laconic.strifesdroid.AudioEngineWrapper
-import com.laconic.strifesdroid.R
+
+const val FPS = 60
+const val SECS_PER_FRAME = 1.0 / FPS
+const val MS_PER_FRAME = (SECS_PER_FRAME * 1000).toLong()
 
 class Emulator(private val romData: ByteArray) {
     private val audioEngine = AudioEngineWrapper()
@@ -20,8 +20,13 @@ class Emulator(private val romData: ByteArray) {
 
     external fun loadROM(romData: ByteArray)
     external fun runFrame(): Unit
-    external fun saveState()
-    external fun loadState()
+    external fun saveState(file: String)
+    external fun loadState(file: String)
+
+    fun reset(){
+        loadROM(romData)
+    }
+//    external fun reset(romData: ByteArray)
 
     fun startEmulator(){
         audioEngine.start()
@@ -29,11 +34,11 @@ class Emulator(private val romData: ByteArray) {
         thread = Thread{
             while(true){
                 if(isRunning) {
-                    val startTime = currentTimeMs()
+                    val startTime = System.currentTimeMillis().toDouble()
 
                     runFrame()
 
-                    val endTime = (currentTimeMs() - startTime).toLong()
+                    val endTime = (System.currentTimeMillis().toDouble() - startTime).toLong()
                     val msLeft = MS_PER_FRAME - endTime;
 
                     if (msLeft > 0) {
@@ -55,14 +60,17 @@ class Emulator(private val romData: ByteArray) {
         isRunning = false
         audioEngine.stop()
     }
-    fun saveEmulatorState(){}
+
+    fun saveEmulatorState(){
+    }
+
     fun loadEmulatorState(){}
 
     companion object{
         private lateinit var emulator: Emulator
-        const val ROM = R.raw.strifesisters
+        val ROM = R.raw.strifesisters
 
-        fun createInstance(context: Context): Emulator{
+        fun createInstance(context: Context): Emulator {
             emulator = Emulator(context.resources.openRawResource(ROM).readBytes())
             return emulator
         }

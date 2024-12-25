@@ -1,7 +1,9 @@
 #pragma once
 #include "pch.h"
+#include "Utilities/ISerializable.h"
+#include "Utilities/Serializer.h"
 
-class IPceMapper
+class IPceMapper : public ISerializable
 {
 protected:
 	bool _mappedBanks[0x100] = {};
@@ -14,5 +16,5 @@ public:
 
 	bool IsBankMapped(uint8_t bank) { return _mappedBanks[bank]; }
 
-//	virtual void Serialize(Serializer& s) override {}
+	virtual void Serialize(Serializer& s) override {}
 };

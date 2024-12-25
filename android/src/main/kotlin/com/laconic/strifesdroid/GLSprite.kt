@@ -2,7 +2,6 @@ package com.laconic.strifesdroid
 
 import android.opengl.GLES20
 import android.opengl.GLES30.*
-import com.felipecsl.knes.Director
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
@@ -12,7 +11,7 @@ class GLSprite {
   private var context: RenderContext? = null
   private var texture: Int? = null
 
-  var director: Director? = null
+//  var director: Director? = null
   private var isRunning: Boolean = false
 
 //  var screen: IntArray = IntArray(256*240)

@@ -2,6 +2,7 @@
 #include "pch.h"
 #include "SoundManager.h"
 #include "AudioEngine.h"
+#include "Utilities/ISerializable.h"
 //#include <memory>
 
 class PceCpu;
@@ -48,7 +49,7 @@ enum class RomFormat
     Ws,
 };
 
-class PceConsole
+class PceConsole : public ISerializable
 {
 private:
     unique_ptr<PceCpu> _cpu;
@@ -79,7 +80,7 @@ public:
     static vector<string> GetSupportedExtensions() { return { ".pce", ".cue", ".sgx", ".hes" }; }
     static vector<string> GetSupportedSignatures() { return { "HESM" }; }
 
-    // void Serialize(Serializer& s) override;
+    void Serialize(Serializer& s);
 
     void InitializeRam(void* data, uint32_t length);
 
@@ -119,13 +120,11 @@ public:
 
     void SetControllerInput(uint8_t value);
     void UnsetControllerInput(uint8_t value);
+    void SaveState(string filename);
+    void LoadState(string filename);
 //    AudioTrackInfo GetAudioTrackInfo();
     // void ProcessAudioPlayerAction(AudioPlayerActionParams p);
 
     // AddressInfo GetAbsoluteAddress(AddressInfo& relAddress) override;
     // AddressInfo GetRelativeAddress(AddressInfo& absAddress, CpuType cpuType) override;
-
-//    PceVideoState GetVideoState();
-//    void SetVideoState(PceVideoState& state);
-//    void GetConsoleState(BaseState& state, ConsoleType consoleType);
 };

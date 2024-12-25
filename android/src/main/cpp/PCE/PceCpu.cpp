@@ -2,6 +2,7 @@
 #include "PceCpu.h"
 #include "PCE/PceMemoryManager.h"
 #include "PCE/PceConsole.h"
+#include "Utilities/Serializer.h"
 
 typedef PceCpu C;
 PceCpu::Func const PceCpu::_opTable[] = {
@@ -448,13 +449,13 @@ void PceCpu::ProcessIrq(bool forBrk)
 	}
 }
 
-//void PceCpu::Serialize(Serializer& s)
-//{
-//	SV(_state.PC);
-//	SV(_state.SP);
-//	SV(_state.PS);
-//	SV(_state.A);
-//	SV(_state.X);
-//	SV(_state.Y);
-//	SV(_state.CycleCount);
-//}
+void PceCpu::Serialize(Serializer& s)
+{
+	SV(_state.PC);
+	SV(_state.SP);
+	SV(_state.PS);
+	SV(_state.A);
+	SV(_state.X);
+	SV(_state.Y);
+	SV(_state.CycleCount);
+}

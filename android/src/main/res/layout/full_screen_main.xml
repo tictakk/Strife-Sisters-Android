@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.laconic.android.NesGLSurfaceView
+        <com.laconic.strifesdroid.NesGLSurfaceView
             android:id="@+id/nesGLSurfaceView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -22,7 +22,7 @@
 
         <view
             android:id="@+id/gamepadOverlay"
-            class="com.laconic.android.GamepadOverlay"
+            class="com.laconic.strifesdroid.GamepadOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

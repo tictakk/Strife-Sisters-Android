@@ -3,8 +3,8 @@
 #include "Shared/ControlDeviceState.h"
 #include "SettingsType.h"
 //#include "Shared/Interfaces/IKeyManager.h"
-//#include "Utilities/SimpleLock.h"
-//#include "Utilities/ISerializable.h"
+#include "Shared/SimpleLock.h"
+#include "Utilities/ISerializable.h"
 //
 // Created by Matthew Kersey on 12/16/24.
 //
@@ -22,7 +22,7 @@ struct DeviceButtonName
     bool IsNumeric = false;
 };
 
-class BaseControlDevice
+class BaseControlDevice : public ISerializable
 {
 protected:
     ControlDeviceState _state = {};
@@ -33,7 +33,7 @@ protected:
     ControllerType _type = ControllerType::None;
     uint8_t _port = 0;
     bool _connected = true;
-//    SimpleLock _stateLock;
+    SimpleLock _stateLock;
 
     virtual void RefreshStateBuffer() { }
 
@@ -112,7 +112,7 @@ public:
 
 //    void static SwapButtons(shared_ptr<BaseControlDevice> state1, uint8_t button1, shared_ptr<BaseControlDevice> state2, uint8_t button2);
 
-//    void Serialize(Serializer &s) override;
+    void Serialize(Serializer &s) override;
 };
 
 

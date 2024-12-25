@@ -10,7 +10,7 @@ void AudioEngine::start(
         jmethodID findClassMethod,
         SoundManager* sm
 ) {
-    LOGD("AudioEngine start()");
+//    LOGD("AudioEngine start()");
     mCpuIds = cpuIds;
     mJavaVM = javaVm;
     mClassLoader = classLoader;
@@ -35,7 +35,7 @@ void AudioEngine::start(
 }
 
 void AudioEngine::stop() const {
-    LOGD("AudioEngine stop()");
+//    LOGD("AudioEngine stop()");
     if (mStream != nullptr) {
         mStream->close();
     }
@@ -43,14 +43,14 @@ void AudioEngine::stop() const {
 
 void AudioEngine::pause() const {
 //    mStream->getAvailableFrames().value();
-    LOGD("AudioEngine pause()");
+//    LOGD("AudioEngine pause()");
     if (mStream != nullptr) {
         mStream->pause();
     }
 }
 
 void AudioEngine::resume() const {
-    LOGD("AudioEngine resume()");
+//    LOGD("AudioEngine resume()");
     if (mStream != nullptr) {
         mStream->start();
     }

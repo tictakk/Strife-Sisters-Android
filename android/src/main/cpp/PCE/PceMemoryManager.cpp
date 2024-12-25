@@ -7,6 +7,7 @@
 #include "PCE/PcePsg.h"
 #include "PCE/PceCpu.h"
 #include "PCE/PceControlManager.h"
+#include "Utilities/Serializer.h"
 //#include "PCE/CdRom/PceCdRom.h"
 
 PceMemoryManager::PceMemoryManager(PceConsole* console, PceVpc* vpc, PceVce* vce, PceControlManager* controlManager, PcePsg* psg, PceTimer* timer, IPceMapper* mapper, vector<uint8_t>& romData, uint32_t cardRamSize, bool cdromUnitEnabled)
@@ -406,3 +407,24 @@ AddressInfo PceMemoryManager::GetRelativeAddress(AddressInfo absAddr)
 
 	return { -1, MemoryType::None };
 }
+
+void PceMemoryManager::Serialize(Serializer& s)
+{
+    SVArray(_workRam, _workRamSize);
+    SVArray(_cardRam, _cardRamSize);
+
+    SV(_state.ActiveIrqs);
+    SV(_state.CycleCount);
+    SV(_state.DisabledIrqs);
+    SV(_state.FastCpuSpeed);
+    SV(_state.IoBuffer);
+    for(int i = 0; i < 8; i++) {
+        SVI(_state.Mpr[i]);
+    }
+    SV(_state.MprReadBuffer);
+
+    if(!s.IsSaving()) {
+        UpdateExecCallback();
+    }
+}
+

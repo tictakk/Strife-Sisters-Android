@@ -3,6 +3,7 @@
 #include "PCE/PceTypes.h"
 #include "PCE/IPceMapper.h"
 #include "PCE/MemoryOperationType.h"
+#include "Utilities/ISerializable.h"
 
 class PceConsole;
 class PceVpc;
@@ -20,7 +21,7 @@ struct AddressInfo
     MemoryType Type;
 };
 
-class PceMemoryManager
+class PceMemoryManager : public ISerializable
 {
 private:
 	// Emulator* _emu = nullptr;
@@ -101,7 +102,7 @@ public:
 	__forceinline bool HasIrqSource(PceIrqSource source) { return (_state.ActiveIrqs & ~_state.DisabledIrqs & (int)source) != 0; }
 	void ClearIrqSource(PceIrqSource source) { _state.ActiveIrqs &= ~(int)source; }
 
-//	void Serialize(Serializer& s);
+	void Serialize(Serializer& s);
 };
 
 __forceinline uint8_t PceMemoryManager::Read(uint16_t addr, MemoryOperationType type)

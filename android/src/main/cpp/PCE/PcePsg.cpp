@@ -4,6 +4,7 @@
 #include "PCE/blip_buf.h"
 #include "SoundManager.h"
 #include "AudioEngine.h"
+#include "Utilities/Serializer.h"
 
 PcePsg::PcePsg(PceConsole* console)
 {
@@ -160,23 +161,23 @@ void PcePsg::PlayQueuedAudio()
 	UpdateSoundOffset();
 }
 
-// void PcePsg::Serialize(Serializer& s)
-// {
-// 	SV(_state.ChannelSelect);
-// 	SV(_state.LeftVolume);
-// 	SV(_state.LfoControl);
-// 	SV(_state.LfoFrequency);
-// 	SV(_state.RightVolume);
+void PcePsg::Serialize(Serializer& s)
+{
+    SV(_state.ChannelSelect);
+    SV(_state.LeftVolume);
+    SV(_state.LfoControl);
+    SV(_state.LfoFrequency);
+    SV(_state.RightVolume);
 
-// 	if(s.GetFormat() != SerializeFormat::Map) {
-// 		//Hide these entries from the Lua API
-// 		SV(_lastClock);
-// 		SV(_prevLeftOutput);
-// 		SV(_prevRightOutput);
-// 		SV(_clockCounter);
-// 	}
+    if(s.GetFormat() != SerializeFormat::Map) {
+        //Hide these entries from the Lua API
+        SV(_lastClock);
+        SV(_prevLeftOutput);
+        SV(_prevRightOutput);
+        SV(_clockCounter);
+    }
 
-// 	for(int i = 0; i < 6; i++) {
-// 		SVI(_channels[i]);
-// 	}
-// }
+    for(int i = 0; i < 6; i++) {
+        SVI(_channels[i]);
+    }
+}

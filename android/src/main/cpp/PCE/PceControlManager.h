@@ -2,8 +2,9 @@
 #include "pch.h"
 #include "PCE/PceTypes.h"
 #include "Shared/BaseControlDevice.h"
+#include "Utilities/ISerializable.h"
 
-class PceControlManager
+class PceControlManager : public ISerializable
 {
 //protected:
 //    vector<shared_ptr<BaseControlDevice>> _controlDevices;
@@ -29,5 +30,5 @@ public:
 	void UpdateControlDevices();
     void reset(PceControlManager controlManager);
 
-	// void Serialize(Serializer& s);
+    void Serialize(Serializer& s);
 };
