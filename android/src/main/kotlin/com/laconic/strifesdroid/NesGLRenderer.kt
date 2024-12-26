@@ -25,6 +25,12 @@ class NesGLRenderer(private val sprite: GLSprite) : GLSurfaceView.Renderer {
   override fun onSurfaceChanged(unused: GL10, width: Int, height: Int) {
     // Adjust the viewport based on geometry changes,
     // such as screen rotation
-    GLES20.glViewport(0, 0, width, height)
+
+    println("width: $width") //2103
+    println("height: $height") //904
+    //desired -> .9375
+    //1580
+    val newWidth = (height/.9375)//attempt to recreate proper pce aspect ratio
+    GLES20.glViewport((width - newWidth.toInt())/2, 0, newWidth.toInt(), height)
   }
 }

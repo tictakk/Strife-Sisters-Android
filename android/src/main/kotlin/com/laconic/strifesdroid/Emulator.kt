@@ -1,6 +1,7 @@
 package com.laconic.strifesdroid
 
 import android.content.Context
+import com.laconic.strifesdroid.app.EmulatorState
 
 const val FPS = 60
 const val SECS_PER_FRAME = 1.0 / FPS
@@ -8,6 +9,9 @@ const val MS_PER_FRAME = (SECS_PER_FRAME * 1000).toLong()
 
 class Emulator(private val romData: ByteArray) {
     private val audioEngine = AudioEngineWrapper()
+    private var _emulatorState: EmulatorState = EmulatorState.EXITED
+    val emulatorState get() = _emulatorState
+
     var isRunning = false
     val _isRunning get() = isRunning
     private lateinit var thread: Thread
@@ -31,9 +35,11 @@ class Emulator(private val romData: ByteArray) {
     fun startEmulator(){
         audioEngine.start()
         isRunning = true
+        _emulatorState = EmulatorState.RUNNING
         thread = Thread{
             while(true){
-                if(isRunning) {
+//                if(isRunning) {
+                if(_emulatorState == EmulatorState.RUNNING){
                     val startTime = System.currentTimeMillis().toDouble()
 
                     runFrame()
@@ -52,12 +58,14 @@ class Emulator(private val romData: ByteArray) {
     }
 
     fun resumeEmulator(){
-        isRunning = true
+//        isRunning = true
+        _emulatorState = EmulatorState.RUNNING
         audioEngine.start()
     }
 
     fun pauseEmulator(){
-        isRunning = false
+//        isRunning = false
+        _emulatorState = EmulatorState.PAUSED
         audioEngine.stop()
     }
 

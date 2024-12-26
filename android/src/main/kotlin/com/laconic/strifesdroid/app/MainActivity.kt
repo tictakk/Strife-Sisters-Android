@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -17,10 +18,22 @@ import com.laconic.strifesdroid.GLSprite
 import com.laconic.strifesdroid.R
 import java.io.File
 
-class MainActivity : AppCompatActivity(), Runnable {
+//create emulator state here
+
+public enum class EmulatorState{
+  RUNNING, PAUSED, SAVING, LOADING, EXITED
+}
+
+enum class UIState{
+  ACTIVE, BACKGROUND, MENU
+}
+
+class MainActivity : AppCompatActivity() {
   private val nesGlSurfaceView by lazy { findViewById<NesGLSurfaceView>(R.id.nesGLSurfaceView) }
   private val gamepadOverlay by lazy { findViewById<GamepadOverlay>(R.id.gamepadOverlay) }
   private lateinit var emulator: Emulator
+//  private var _uiState: UIState = UIState.ACTIVE
+//  val uiState get() = _uiState
 
   private val handlerThread = HandlerThread("Console Thread")
   private lateinit var handler: Handler
@@ -28,6 +41,8 @@ class MainActivity : AppCompatActivity(), Runnable {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+      WindowManager.LayoutParams.FLAG_FULLSCREEN)
     setContentView(R.layout.full_screen_main)
 
     glSprite = GLSprite()
@@ -36,7 +51,7 @@ class MainActivity : AppCompatActivity(), Runnable {
     glSprite.toggleRunState()
     gamepadOverlay.attachActivity(this)
     gamepadOverlay.setOnClickListener{
-      if(!emulator.isRunning){
+      if(emulator.emulatorState == EmulatorState.PAUSED){
         toggleConsoleState()
         gamepadOverlay.hideDropdown()
       }
@@ -44,7 +59,7 @@ class MainActivity : AppCompatActivity(), Runnable {
   }
 
   fun toggleConsoleState(){
-    if(emulator._isRunning){
+    if(emulator.emulatorState == EmulatorState.RUNNING){
       pauseConsole()
     }else{
       resumeConsole()
@@ -62,7 +77,16 @@ class MainActivity : AppCompatActivity(), Runnable {
     emulator.resumeEmulator()
   }
 
-  private fun updatePlayPauseIcon() {
+  override fun onResume() {
+    super.onResume()
+    if(gamepadOverlay.uiState == UIState.ACTIVE){
+      emulator.resumeEmulator()
+    }
+  }
+
+  override fun onStop() {
+    super.onStop()
+    emulator.pauseEmulator()
   }
 
 //  private fun updateFPS(ms: Long){
@@ -76,7 +100,7 @@ class MainActivity : AppCompatActivity(), Runnable {
 //    }
 //  }
 
-  override fun run() {
+//  override fun run() {
 //    while(true) {
 //      if (isRunning) {
 //        val startTime = currentTimeMs()
@@ -90,7 +114,7 @@ class MainActivity : AppCompatActivity(), Runnable {
 //        }
 //      }
 //    }
-  }
+//  }
 
   fun maybeSaveState() {
     save()

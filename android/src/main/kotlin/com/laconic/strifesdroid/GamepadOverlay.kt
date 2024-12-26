@@ -13,9 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.laconic.strifesdroid.app.MainActivity
+import com.laconic.strifesdroid.app.UIState
 import com.laconic.util.RecyclerAdapter
 import io.github.controlwear.virtual.joystick.android.JoystickView
 
+//remake key presses to keyboard press so any input device can use controls
 @SuppressLint("ClickableViewAccessibility")
 class GamepadOverlay(private val ctx: Context, attrs: AttributeSet) : LinearLayout(ctx,attrs) {
     private val runBtn by lazy { findViewById<AppCompatButton>(R.id.runBtn) }
@@ -26,6 +28,8 @@ class GamepadOverlay(private val ctx: Context, attrs: AttributeSet) : LinearLayo
     private val settingsBtn by lazy { findViewById<AppCompatImageButton>(R.id.settingsBtn) }
     private val dropDwn by lazy { findViewById<RecyclerView>(R.id.dropDown) }
     lateinit var activity: MainActivity
+    private var _uiState: UIState = UIState.ACTIVE
+    val uiState get() = _uiState
 
     external fun pressButton(button: Int)
     external fun releaseButton(button: Int)
@@ -59,24 +63,22 @@ class GamepadOverlay(private val ctx: Context, attrs: AttributeSet) : LinearLayo
             }
         }
 
-
         settingsBtn.setOnClickListener{
             activity.toggleConsoleState()
             if(dropDwn.visibility == View.GONE){
+                _uiState = UIState.MENU
                 dropDwn.visibility = View.VISIBLE
             }else if(dropDwn.visibility == View.VISIBLE){
+                _uiState = UIState.ACTIVE
                 dropDwn.visibility = View.GONE
             }
         }
 
         recyclerAdapter.setOnClickListener(object: RecyclerAdapter.OnClickListener{
             override fun onClick(position: Int) {
-//                println("item pos: $position")
                 if(position == 0){
-//                    println("save")
                     save()
                 }else if(position == 1){
-//                    println("load")
                     load()
                 }else if(position == 2){
                     reset()
