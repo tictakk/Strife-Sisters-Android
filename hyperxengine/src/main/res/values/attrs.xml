@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="GamepadOverlay">
+
+        <attr name="runBtn" format="reference" />
+
+        <attr name="selBtn" format="reference" />
+
+        <attr name="iBtn" format="reference" />
+
+        <attr name="iiBtn" format="reference" />
+
+        <attr name="joystick" format="reference" />
+
+        <attr name="settingsBtn" format="reference" />
+
+        <attr name="dropDwn" format="reference" />
+
+    </declare-styleable>
+
+</resources>
