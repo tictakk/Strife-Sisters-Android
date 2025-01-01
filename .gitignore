@@ -24,3 +24,4 @@ node_modules
 
 android/src/main/res/raw/*.pce
 hyperxengine
+android/release
