@@ -13,12 +13,7 @@ jmethodID gFindClassMethod;
 PceConsole *pceConsole;
 int vscreen[256*240];
 SoundManager soundManager;
-//int vscreen[682*242+1];
-//int *vscreen = new int[256*240];
 uint16_t *screen;
-
-void initConsole(){
-}
 
 JNIEXPORT jint
 JNI_OnLoad(JavaVM *vm, void *reserved) {
@@ -27,14 +22,14 @@ JNI_OnLoad(JavaVM *vm, void *reserved) {
   if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_6) != JNI_OK) {
     return -1;
   }
-  jclass clsMain = env->FindClass("com/laconic/strifesdroid/app/MainActivity");
-  jclass classClass = env->GetObjectClass(clsMain);
-  jclass classLoaderClass = env->FindClass("java/lang/ClassLoader");
-  jmethodID getClassLoaderMethod =
-      env->GetMethodID(classClass, "getClassLoader", "()Ljava/lang/ClassLoader;");
-  gClassLoader = env->NewGlobalRef(env->CallObjectMethod(clsMain, getClassLoaderMethod));
-  gFindClassMethod =
-      env->GetMethodID(classLoaderClass, "findClass", "(Ljava/lang/String;)Ljava/lang/Class;");
+//  jclass clsMain = env->FindClass("com/laconic/strifesdroid/app/MainActivity");
+//  jclass classClass = env->GetObjectClass(clsMain);
+//  jclass classLoaderClass = env->FindClass("java/lang/ClassLoader");
+//  jmethodID getClassLoaderMethod =
+//      env->GetMethodID(classClass, "getClassLoader", "()Ljava/lang/ClassLoader;");
+//  gClassLoader = env->NewGlobalRef(env->CallObjectMethod(clsMain, getClassLoaderMethod));
+//  gFindClassMethod =
+//      env->GetMethodID(classLoaderClass, "findClass", "(Ljava/lang/String;)Ljava/lang/Class;");
   return JNI_VERSION_1_6;
 }
 

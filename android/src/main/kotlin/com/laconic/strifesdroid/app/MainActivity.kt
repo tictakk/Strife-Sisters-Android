@@ -1,39 +1,32 @@
 package com.laconic.strifesdroid.app
 
-import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-//import com.laconic.R
-//import com.laconic.strifesdroid.R
-import com.laconic.strifesdroid.NesGLSurfaceView
-import com.laconic.strifesdroid.GamepadOverlay
-import com.laconic.strifesdroid.Emulator
-import com.laconic.strifesdroid.GLSprite
-import com.laconic.strifesdroid.R
+
+//import com.laconic.strifesdroid.NesGLSurfaceView
+//import com.laconic.strifesdroid.GamepadOverlay
+//import com.laconic.strifesdroid.Emulator
+//import com.laconic.strifesdroid.GLSprite
+
+import com.laconic.hyperxengine.NesGLSurfaceView
+import com.laconic.hyperxengine.GamepadOverlay
+import com.laconic.hyperxengine.Emulator
+import com.laconic.hyperxengine.GLSprite
+
+import com.laconic.hyperxengine.R
 import java.io.File
 
-//create emulator state here
+import com.laconic.hyperxengine.EmulatorActivity
+import com.laconic.hyperxengine.UIState
 
-public enum class EmulatorState{
-  RUNNING, PAUSED, SAVING, LOADING, EXITED
-}
-
-enum class UIState{
-  ACTIVE, BACKGROUND, MENU
-}
-
-class MainActivity : AppCompatActivity() {
-  private val nesGlSurfaceView by lazy { findViewById<NesGLSurfaceView>(R.id.nesGLSurfaceView) }
-  private val gamepadOverlay by lazy { findViewById<GamepadOverlay>(R.id.gamepadOverlay) }
+class MainActivity : AppCompatActivity(), EmulatorActivity {
+  private val nesGlSurfaceView: NesGLSurfaceView by lazy { findViewById(R.id.nesGLSurfaceView) }
+  private val gamepadOverlay: GamepadOverlay by lazy { findViewById(R.id.gamepadOverlay) }
   private lateinit var emulator: Emulator
-//  private var _uiState: UIState = UIState.ACTIVE
-//  val uiState get() = _uiState
 
   private val handlerThread = HandlerThread("Console Thread")
   private lateinit var handler: Handler
@@ -43,23 +36,24 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
       WindowManager.LayoutParams.FLAG_FULLSCREEN)
-    setContentView(R.layout.full_screen_main)
+    setContentView(com.laconic.hyperxengine.R.layout.full_screen_main)//R.layout.full_screen_main)
 
     glSprite = GLSprite()
     nesGlSurfaceView.setSprite(glSprite)
-    emulator = Emulator.createInstance(this)
+    emulator = Emulator.createInstance(this, com.laconic.strifesdroid.R.raw.strifesisters)
     glSprite.toggleRunState()
     gamepadOverlay.attachActivity(this)
     gamepadOverlay.setOnClickListener{
-      if(emulator.emulatorState == EmulatorState.PAUSED){
+      if(emulator.isPaused()){
         toggleConsoleState()
         gamepadOverlay.hideDropdown()
       }
     }
   }
 
-  fun toggleConsoleState(){
-    if(emulator.emulatorState == EmulatorState.RUNNING){
+  override fun toggleConsoleState(){
+//    if(emulator.emulatorState == EmulatorState.RUNNING){
+    if(!emulator.isPaused()){
       pauseConsole()
     }else{
       resumeConsole()
@@ -116,7 +110,7 @@ class MainActivity : AppCompatActivity() {
 //    }
 //  }
 
-  fun maybeSaveState() {
+  override fun maybeSaveState() {
     save()
     toggleConsoleState()
   }
@@ -126,7 +120,7 @@ class MainActivity : AppCompatActivity() {
     Toast.makeText(this.applicationContext,"Game state saved",Toast.LENGTH_LONG).show()
   }
 
-  fun maybeRestoreState() {
+  override fun maybeRestoreState() {
     load()
     toggleConsoleState()
   }
@@ -141,25 +135,8 @@ class MainActivity : AppCompatActivity() {
     }
   }
 
-  fun reset(){
+  override fun reset(){
     emulator.reset()
     toggleConsoleState()
   }
-
-//  companion object {
-//    const val ROM = R.raw.strifesisters
-////    private const val STATE_PREFS_KEY = "KTNES_STATE"
-////    internal var staticDirector: Director? = null
-//
-//    external fun getAudioBuffer(): IntArray?//FloatArray
-//
-//    init {
-//      System.loadLibrary("ktnes-audio")
-//    }
-////     Called from JNI AudioEngine
-//    @Suppress("unused")
-//    @JvmStatic fun audioBuffer(): IntArray? {
-//      return getAudioBuffer() ?: IntArray(0)//FloatArray(0)
-//    }
-//  }
 }

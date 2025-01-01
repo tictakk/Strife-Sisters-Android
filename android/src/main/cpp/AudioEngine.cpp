@@ -17,7 +17,7 @@ void AudioEngine::start(
     mFindClassMethod = findClassMethod;
     AudioStreamBuilder builder;
 //    builder.setCallback(this);
-    builder.setPerformanceMode(PerformanceMode::LowLatency);
+    builder.setPerformanceMode(PerformanceMode::None);
     builder.setUsage(Usage::Game);
 //  builder.setFormat(AudioFormat::Float);
     builder.setFormat(AudioFormat::I16);
@@ -63,6 +63,9 @@ void AudioEngine::writeAudioData(const int16_t * audioData, int32_t numFrames){
     if(result.value() < 0){
         LOGE("Some error");
     }
+//    if(mStream->getXRunCount()){
+//        LOGI("XRun cnt: %i",mStream->getXRunCount().value());
+//    }
 //    LOGI("XRun cnt: %i",mStream->getXRunCount().value());
 }
 
